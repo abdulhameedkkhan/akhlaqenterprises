@@ -84,7 +84,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">European Union</span>
+                        <span class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">European</span>
                     </div>
 
                     <!-- United Kingdom Flag Logo -->

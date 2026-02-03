@@ -55,8 +55,9 @@ class ProductSeeder extends Seeder
             'Cuttle Fish' => [
                 'Cuttle Fish',
             ],
-            'Squids' => [
+            'Cephalopods' => [
                 'Squid',
+                'Octopus',
             ],
             'Shrimps' => [
                 'Brown Shrimp (Metapenaeus monoceros)',
@@ -147,13 +148,18 @@ class ProductSeeder extends Seeder
 
     private function getProductImage($slug, $category)
     {
-        // For products that already have local images (from previous setup)
-        $localPath = "images/products/{$slug}/main.jpg";
-        if (file_exists(public_path($localPath))) {
-            return $localPath;
+        // 1. Check if the directory exists and has ANY file starting with "main"
+        $directory = public_path('images/products/' . $slug);
+        if (File::isDirectory($directory)) {
+            $files = File::files($directory);
+            foreach ($files as $file) {
+                if (Str::startsWith($file->getFilename(), 'main')) {
+                    return 'images/products/' . $slug . '/' . $file->getFilename();
+                }
+            }
         }
 
-        // Professional fish placeholders from Unsplash for new products
+        // 2. Professional fish placeholders from Unsplash for new products
         $placeholders = [
             'Fresh Water Fish' => 'https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&q=80&w=800',
             'Emperor Fish' => 'https://images.unsplash.com/photo-1534123231700-1c05d064dd7c?auto=format&fit=crop&q=80&w=800',
@@ -161,8 +167,8 @@ class ProductSeeder extends Seeder
             'King Fish' => 'https://images.unsplash.com/photo-1544621530-999335694851?auto=format&fit=crop&q=80&w=800',
             'Barracuda Fish' => 'https://images.unsplash.com/photo-1510257321689-5f2840d2b453?auto=format&fit=crop&q=80&w=800',
             'Tuna Fish' => 'https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=800',
-            'Shrimps' => 'https://images.unsplash.com/photo-1559740038-191f42217f73?auto=format&fit=crop&q=80&w=800',
             'Crabs' => 'https://images.unsplash.com/photo-1550504620-13e6a495679c?auto=format&fit=crop&q=80&w=800',
+            'Cephalopods' => 'https://images.unsplash.com/photo-1545671913-b89ac1b4ac10?auto=format&fit=crop&q=80&w=800',
         ];
 
         return $placeholders[$category] ?? 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=800';

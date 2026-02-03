@@ -29,7 +29,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
         ]);
 
         $product = new Product($data);
@@ -38,18 +38,30 @@ class ProductController extends Controller
         // Handle Main Image
         if ($request->hasFile('image')) {
             $imageName = 'main_' . time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/products/' . $product->slug), $imageName);
+            $directory = public_path('images/products/' . $product->slug);
+            
+            if (!File::isDirectory($directory)) {
+                File::makeDirectory($directory, 0755, true, true);
+            }
+
+            $request->image->move($directory, $imageName);
             $product->image = 'images/products/' . $product->slug . '/' . $imageName;
         } else {
-            $product->image = 'images/products/placeholder.jpg';
+            $product->image = 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=800';
         }
 
         // Handle Gallery Images
         if ($request->hasFile('gallery')) {
             $galleryPaths = [];
+            $galleryDir = public_path('images/products/' . $product->slug . '/gallery');
+            
+            if (!File::isDirectory($galleryDir)) {
+                File::makeDirectory($galleryDir, 0755, true, true);
+            }
+
             foreach ($request->file('gallery') as $index => $file) {
                 $fileName = 'gallery_' . time() . '_' . $index . '.' . $file->extension();
-                $file->move(public_path('images/products/' . $product->slug . '/gallery'), $fileName);
+                $file->move($galleryDir, $fileName);
                 $galleryPaths[] = 'images/products/' . $product->slug . '/gallery/' . $fileName;
             }
             $product->gallery = $galleryPaths;
@@ -72,7 +84,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // Increased size and added webp
         ]);
 
         $product->fill($data);
@@ -80,12 +92,20 @@ class ProductController extends Controller
         // Handle Main Image Update
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if ($product->image && $product->image != 'images/products/placeholder.jpg' && File::exists(public_path($product->image))) {
+            if ($product->image && !Str::startsWith($product->image, 'http') && File::exists(public_path($product->image))) {
                 File::delete(public_path($product->image));
             }
+            
+            $slug = $product->slug ?: Str::slug($product->name);
             $imageName = 'main_' . time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/products/' . $product->slug), $imageName);
-            $product->image = 'images/products/' . $product->slug . '/' . $imageName;
+            $directory = public_path('images/products/' . $slug);
+            
+            if (!File::isDirectory($directory)) {
+                File::makeDirectory($directory, 0755, true, true);
+            }
+
+            $request->image->move($directory, $imageName);
+            $product->image = 'images/products/' . $slug . '/' . $imageName;
         }
 
         // Handle Gallery Images Update
