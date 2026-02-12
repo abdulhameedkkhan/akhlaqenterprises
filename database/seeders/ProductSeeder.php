@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductSeeder extends Seeder
 {

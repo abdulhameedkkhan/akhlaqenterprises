@@ -96,47 +96,47 @@
     </div>
 
     <!-- Features Section - Reimagined -->
-    <section class="py-24 bg-white relative overflow-hidden">
+    <section class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden transition-colors">
         <!-- Decor element -->
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -skew-x-12 translate-x-32 z-0"></div>
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-slate-50 dark:bg-slate-950 -skew-x-12 translate-x-32 z-0"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20">
-                <span class="text-blue-600 font-bold tracking-wider uppercase text-sm">Why We Are Leads</span>
-                <h2 class="text-4xl font-extrabold text-slate-900 mt-2 mb-4">Why Choose Akhlaq Enterprises?</h2>
-                <div class="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 mx-auto rounded-full"></div>
+                <span class="text-blue-600 dark:text-blue-400 font-bold tracking-wider uppercase text-sm">Why We Are Leads</span>
+                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-slate-100 mt-2 mb-4">Why Choose Akhlaq Enterprises?</h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 dark:from-blue-500 dark:to-cyan-500 mx-auto rounded-full"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 group">
-                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors duration-300">
-                        <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-15px_rgba(0,0,0,0.3)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-slate-700 group">
+                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-950 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 dark:group-hover:bg-blue-600 transition-colors duration-300">
+                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Freshness Guaranteed</h3>
-                    <p class="text-slate-600 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Freshness Guaranteed</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
                         Our rapid logistics and immediate processing ensure that the ocean's freshness is locked in from the moment of catch to delivery.
                     </p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 group">
-                    <div class="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-cyan-600 transition-colors duration-300">
-                        <svg class="w-8 h-8 text-cyan-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-15px_rgba(0,0,0,0.3)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-slate-700 group">
+                    <div class="w-16 h-16 bg-cyan-50 dark:bg-cyan-950 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-cyan-600 dark:group-hover:bg-cyan-600 transition-colors duration-300">
+                        <svg class="w-8 h-8 text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Global Standards</h3>
-                    <p class="text-slate-600 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Global Standards</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
                         Compliant with international food safety regulations including HACCP, ISO, and EU standards, ensuring risk-free global trade.
                     </p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 group">
-                    <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-600 transition-colors duration-300">
-                        <svg class="w-8 h-8 text-emerald-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_40px_-15px_rgba(0,0,0,0.3)] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-slate-100 dark:border-slate-700 group">
+                    <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-950 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-600 dark:group-hover:bg-emerald-600 transition-colors duration-300">
+                        <svg class="w-8 h-8 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Premium Quality</h3>
-                    <p class="text-slate-600 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Premium Quality</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
                         We don't just sell seafood; we sell an experience. Strict quality control means you only get the best, every single time.
                     </p>
                 </div>
@@ -304,88 +304,88 @@
     </section>
 
     <!-- Excellence Process -->
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-20">
-                <span class="text-blue-600 font-bold tracking-[0.3em] uppercase text-xs">Uncompromising Standards</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-4 mb-6 tracking-tighter text-balance">The Akhlaq Quality Lifecycle</h2>
-                <p class="text-slate-500 text-lg max-w-2xl mx-auto">From the deep blue Arabian Sea to markets across the globe, we ensure every step maintains the highest standards of seafood. </p>
+                <span class="text-blue-600 dark:text-blue-400 font-bold tracking-[0.3em] uppercase text-xs">Uncompromising Standards</span>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-100 mt-4 mb-6 tracking-tighter text-balance">The Akhlaq Quality Lifecycle</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">From the deep blue Arabian Sea to markets across the globe, we ensure every step maintains the highest standards of seafood. </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
                 <!-- Connecting Line (Desktop) -->
-                <div class="hidden md:block absolute top-1/4 left-0 w-full h-px bg-slate-100 z-0"></div>
+                <div class="hidden md:block absolute top-1/4 left-0 w-full h-px bg-slate-100 dark:bg-slate-800 z-0"></div>
 
                 <!-- Step 1 -->
                 <div class="relative z-10 text-center group">
-                    <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-500">01</div>
-                    <h3 class="font-bold text-xl text-slate-900 mb-3">Fresh Catch</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed px-4">Direct sourcing from verified local vessels at the Karachi Fish Harbour.</p>
+                    <div class="w-20 h-20 bg-blue-600 dark:bg-blue-700 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 dark:shadow-blue-400/20 group-hover:rotate-12 transition-transform duration-500">01</div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-slate-100 mb-3">Fresh Catch</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">Direct sourcing from verified local vessels at the Karachi Fish Harbour.</p>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="relative z-10 text-center group">
-                    <div class="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl group-hover:rotate-12 transition-transform duration-500">02</div>
-                    <h3 class="font-bold text-xl text-slate-900 mb-3">Sort & Inspect</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed px-4">Stringent quality grading by experts to ensure only premium grade products move forward.</p>
+                    <div class="w-20 h-20 bg-slate-900 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl dark:shadow-slate-700/30 group-hover:rotate-12 transition-transform duration-500">02</div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-slate-100 mb-3">Sort & Inspect</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">Stringent quality grading by experts to ensure only premium grade products move forward.</p>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="relative z-10 text-center group">
-                    <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-500">03</div>
-                    <h3 class="font-bold text-xl text-slate-900 mb-3">Flash Frozen</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed px-4">Rapid blast freezing at -40°C to lock in nutrients and natural flavor.</p>
+                    <div class="w-20 h-20 bg-blue-600 dark:bg-blue-700 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 dark:shadow-blue-400/20 group-hover:rotate-12 transition-transform duration-500">03</div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-slate-100 mb-3">Flash Frozen</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">Rapid blast freezing at -40°C to lock in nutrients and natural flavor.</p>
                 </div>
 
                 <!-- Step 4 -->
                 <div class="relative z-10 text-center group">
-                    <div class="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl group-hover:rotate-12 transition-transform duration-500">04</div>
-                    <h3 class="font-bold text-xl text-slate-900 mb-3">Global Export</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed px-4">Seamless cold-chain logistics ensures safe arrival at any port worldwide.</p>
+                    <div class="w-20 h-20 bg-slate-900 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl dark:shadow-slate-700/30 group-hover:rotate-12 transition-transform duration-500">04</div>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-slate-100 mb-3">Global Export</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">Seamless cold-chain logistics ensures safe arrival at any port worldwide.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Statistics Section -->
-    <section class="py-24 bg-slate-900 relative overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
+    <section class="py-24 bg-slate-900 dark:bg-black relative overflow-hidden transition-colors">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 dark:opacity-10"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
                 <div class="p-8">
-                    <span class="block text-5xl md:text-6xl font-black text-blue-500 mb-2">25+</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Years Experience</span>
+                    <span class="block text-5xl md:text-6xl font-black text-blue-500 dark:text-blue-400 mb-2">25+</span>
+                    <span class="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs">Years Experience</span>
                 </div>
-                <div class="p-8 border-l border-slate-800">
-                    <span class="block text-5xl md:text-6xl font-black text-white mb-2">40+</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Global Destinations</span>
+                <div class="p-8 border-l border-slate-800 dark:border-slate-900">
+                    <span class="block text-5xl md:text-6xl font-black text-white dark:text-slate-200 mb-2">40+</span>
+                    <span class="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs">Global Destinations</span>
                 </div>
-                <div class="p-8 border-l border-slate-800">
-                    <span class="block text-5xl md:text-6xl font-black text-blue-500 mb-2">15k</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Tons Shipped</span>
+                <div class="p-8 border-l border-slate-800 dark:border-slate-900">
+                    <span class="block text-5xl md:text-6xl font-black text-blue-500 dark:text-blue-400 mb-2">15k</span>
+                    <span class="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs">Tons Shipped</span>
                 </div>
-                <div class="p-8 border-l border-slate-800">
-                    <span class="block text-5xl md:text-6xl font-black text-white mb-2">100%</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Quality Compliance</span>
+                <div class="p-8 border-l border-slate-800 dark:border-slate-900">
+                    <span class="block text-5xl md:text-6xl font-black text-white dark:text-slate-200 mb-2">100%</span>
+                    <span class="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-xs">Quality Compliance</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Dynamic Call to Action -->
-    <section class="py-24 bg-blue-600 relative overflow-hidden group">
+    <section class="py-24 bg-blue-600 dark:bg-blue-700 relative overflow-hidden group transition-colors">
         <!-- Animated Background Rings -->
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-black/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 dark:bg-white/5 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-black/10 dark:bg-black/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="bg-slate-900 rounded-[3rem] p-12 md:p-20 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="bg-slate-900 dark:bg-black rounded-[3rem] p-12 md:p-20 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-none">Partner with the<br><span class="text-blue-500">Industry Leaders.</span></h2>
-                    <p class="text-slate-400 text-xl max-w-lg font-medium">Get a customized quote for your bulk seafood requirements today. We provide worldwide shipping with guaranteed freshness. </p>
+                    <h2 class="text-4xl md:text-6xl font-black text-white dark:text-slate-100 mb-6 tracking-tighter leading-none">Partner with the<br><span class="text-blue-500 dark:text-blue-400">Industry Leaders.</span></h2>
+                    <p class="text-slate-400 dark:text-slate-500 text-xl max-w-lg font-medium">Get a customized quote for your bulk seafood requirements today. We provide worldwide shipping with guaranteed freshness. </p>
                 </div>
                 <div class="shrink-0">
-                    <a href="{{ route('contact') }}" class="group relative inline-flex items-center gap-4 px-12 py-6 bg-blue-600 text-white font-extrabold text-xl rounded-2xl shadow-2xl shadow-blue-600/40 hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:-translate-y-2">
+                    <a href="{{ route('contact') }}" class="group relative inline-flex items-center gap-4 px-12 py-6 bg-blue-600 dark:bg-blue-700 text-white font-extrabold text-xl rounded-2xl shadow-2xl shadow-blue-600/40 dark:shadow-blue-400/20 hover:bg-white dark:hover:bg-slate-200 hover:text-blue-600 dark:hover:text-blue-700 transition-all duration-300 transform hover:-translate-y-2">
                         Get Started Now
                         <svg class="w-6 h-6 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
