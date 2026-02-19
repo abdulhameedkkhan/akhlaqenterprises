@@ -21,7 +21,7 @@
     </div>
 
     <!-- Gallery Section -->
-    <div class="bg-white py-20">
+    <div class="bg-white dark:bg-slate-900 py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Category Tabs -->
@@ -30,7 +30,7 @@
                     Show All
                 </button>
                 @foreach($galleryItems as $category => $items)
-                    <button class="px-8 py-3 rounded-full font-bold transition-all border-2 border-slate-100 bg-slate-50 text-slate-600 hover:border-blue-200 filter-btn" data-category="{{ Str::slug($category) }}">
+                    <button class="px-8 py-3 rounded-full font-bold transition-all border-2 border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-200 filter-btn" data-category="{{ Str::slug($category) }}">
                         {{ $category }}
                     </button>
                 @endforeach
@@ -80,13 +80,12 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active state
                 filterBtns.forEach(b => {
-                    b.classList.remove('bg-slate-900', 'text-white', 'shadow-xl', 'shadow-slate-900/20', 'active');
-                    b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-100');
+                    b.classList.remove('bg-slate-900', 'dark:bg-blue-600', 'text-white', 'shadow-xl', 'shadow-slate-900/20', 'active', 'border-slate-900');
+                    b.classList.add('bg-slate-50', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300', 'border-slate-100', 'dark:border-slate-700');
                 });
                 btn.classList.add('bg-slate-900', 'text-white', 'shadow-xl', 'shadow-slate-900/20', 'active');
-                btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-100');
+                btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300', 'border-slate-100', 'dark:border-slate-700');
 
                 const category = btn.dataset.category;
                 

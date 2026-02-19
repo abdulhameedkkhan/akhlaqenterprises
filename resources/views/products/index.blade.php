@@ -46,15 +46,15 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Unified Premium Filter Bar -->
-        <div class="bg-white/80 backdrop-blur-xl border border-slate-200 shadow-2xl rounded-[2rem] p-8 mb-12 transition-all hover:shadow-blue-500/10">
+        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200 dark:border-slate-700 shadow-2xl rounded-[2rem] p-8 mb-12 transition-all hover:shadow-blue-500/10">
             <div class="flex flex-col lg:flex-row gap-8 items-center">
                 <!-- Search Section -->
                 <div class="w-full lg:w-1/3">
-                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Find Seafood</label>
+                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">Find Seafood</label>
                     <div class="relative group">
                         <input type="text" id="search-input" 
                             placeholder="Search fresh catch..." 
-                            class="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 font-semibold shadow-inner">
+                            class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 border-2 border-slate-100 dark:border-slate-600 rounded-2xl focus:bg-white dark:focus:bg-slate-600 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 font-semibold shadow-inner">
                         <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         </div>
@@ -62,16 +62,15 @@
                 </div>
 
                 <!-- Divider (Desktop Only) -->
-                <div class="hidden lg:block w-px h-16 bg-slate-200 mx-2"></div>
+                <div class="hidden lg:block w-px h-16 bg-slate-200 dark:bg-slate-600 mx-2"></div>
 
                 <!-- Categories Section -->
                 <div class="w-full lg:w-2/3 overflow-hidden">
-                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 ml-1">Categories</label>
+                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">Categories</label>
                     <div class="flex items-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x">
-                        <!-- All Categories Pill -->
                         <label class="shrink-0 snap-start">
                             <input type="radio" name="category" value="all" checked class="hidden peer">
-                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 bg-slate-50 text-slate-600 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
+                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
                                 All Products
                             </div>
                         </label>
@@ -79,7 +78,7 @@
                         @foreach($categories as $category)
                         <label class="shrink-0 snap-start">
                             <input type="radio" name="category" value="{{ $category->id }}" class="hidden peer">
-                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 bg-slate-50 text-slate-600 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
+                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
                                 {{ $category->name }}
                             </div>
                         </label>
@@ -92,7 +91,7 @@
         <!-- Product Grid Area (Full Width) -->
         <div class="relative">
             <div id="loading-spinner" class="hidden absolute top-0 left-1/2 -translate-x-1/2 z-10 transition-all">
-                <div class="bg-white/80 backdrop-blur-sm p-4 rounded-full shadow-xl border border-slate-100">
+                <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-4 rounded-full shadow-xl border border-slate-100 dark:border-slate-700">
                     <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -115,12 +114,12 @@
                 </div>
             @endif
             
-            <div id="no-results" class="hidden text-center py-24 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
-                <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div id="no-results" class="hidden text-center py-24 bg-slate-50 dark:bg-slate-800 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-700">
+                <div class="w-24 h-24 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-12 h-12 text-slate-300 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-800 mb-2">Ocean is empty for this criteria</h3>
-                <p class="text-slate-500 text-lg">Try adjusting your filters or search terms.</p>
+                <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-2">Ocean is empty for this criteria</h3>
+                <p class="text-slate-500 dark:text-slate-400 text-lg">Try adjusting your filters or search terms.</p>
             </div>
         </div>
     </div>

@@ -4,23 +4,23 @@
 
 @section('content')
     <!-- Breadcrumb -->
-    <div class="bg-slate-100 pt-8 pb-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-slate-500">
-            <a href="{{ route('home') }}" class="hover:text-blue-600">Home</a>
+    <div class="bg-slate-100 dark:bg-slate-800 pt-8 pb-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-slate-500 dark:text-slate-400">
+            <a href="{{ route('home') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Home</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('products.index') }}" class="hover:text-blue-600">Products</a>
+            <a href="{{ route('products.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Products</a>
             <span class="mx-2">/</span>
-            <span class="text-slate-900 font-semibold">{{ $product->name }}</span>
+            <span class="text-slate-900 dark:text-white font-semibold">{{ $product->name }}</span>
         </div>
     </div>
 
     <!-- Product Details -->
-    <div class="py-12 bg-white">
+    <div class="py-12 bg-white dark:bg-slate-800/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <!-- Image Gallery -->
                 <div class="space-y-6">
-                    <div class="relative aspect-square bg-slate-50 rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl group/main">
+                    <div class="relative aspect-square bg-slate-50 dark:bg-slate-800 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-700 shadow-xl group/main">
                         <img src="{{ asset($product->image) }}" id="main-product-image" 
                              class="object-contain w-full h-full p-8 transition-all duration-700 ease-out transform group-hover/main:scale-110 active:scale-105 cursor-zoom-in"
                              alt="{{ $product->name }}">
@@ -78,32 +78,31 @@
                 <!-- Info -->
                 <div class="flex flex-col">
                     <div class="mb-6">
-                        <span class="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-xs font-bold tracking-wide uppercase mb-4">{{ $product->category->name }}</span>
-                        <h1 class="text-4xl font-bold text-slate-900 mb-4">{{ $product->name }}</h1>
-                        <p class="text-lg text-slate-600 leading-relaxed">{{ $product->description }}</p>
+                        <span class="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 text-xs font-bold tracking-wide uppercase mb-4">{{ $product->category->name }}</span>
+                        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">{{ $product->name }}</h1>
+                        <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">{{ $product->description }}</p>
                     </div>
 
-                    <div class="border-t border-b border-slate-100 py-6 mb-8">
-                        <h3 class="font-bold text-slate-900 mb-4 text-lg">Product Specifications</h3>
+                    <div class="border-t border-b border-slate-100 dark:border-slate-700 py-6 mb-8">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4 text-lg">Product Specifications</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                             @if($product->specifications && is_array($product->specifications))
                                 @foreach($product->specifications as $key => $value)
                                     <div>
-                                        <span class="block text-xs uppercase tracking-wide text-slate-500 font-semibold">{{ $key }}</span>
-                                        <span class="block text-slate-900 font-medium">{{ $value }}</span>
+                                        <span class="block text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 font-semibold">{{ $key }}</span>
+                                        <span class="block text-slate-900 dark:text-white font-medium">{{ $value }}</span>
                                     </div>
                                 @endforeach
                             @endif
-                            <!-- Static fallback fields if needed -->
                             <div>
-                                <span class="block text-xs uppercase tracking-wide text-slate-500 font-semibold">Availability</span>
-                                <span class="block text-green-600 font-medium">In Stock (Seasonal)</span>
+                                <span class="block text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 font-semibold">Availability</span>
+                                <span class="block text-green-600 dark:text-green-400 font-medium">In Stock (Seasonal)</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="mt-auto">
-                        <h3 class="font-bold text-slate-900 mb-4">Interested in this product?</h3>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Interested in this product?</h3>
                         <div class="flex flex-col sm:flex-row gap-4">
                             <a href="{{ route('contact') }}" class="flex-1 bg-blue-600 text-white text-center font-bold py-4 px-8 rounded-xl shadow-lg hover:bg-blue-700 hover:shadow-blue-600/30 transition-all transform hover:-translate-y-0.5">
                                 Request Quote
@@ -121,22 +120,22 @@
 
     <!-- Related Products -->
     @if($relatedProducts->count() > 0)
-    <section class="py-16 bg-slate-50 border-t border-slate-200">
+    <section class="py-16 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-slate-900 mb-8">Related Products</h2>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Products</h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 @foreach($relatedProducts as $related)
-                    <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all">
-                        <div class="h-40 bg-slate-100 relative overflow-hidden">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden group hover:shadow-lg transition-all">
+                        <div class="h-40 bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
                              <img src="{{ asset($related->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="{{ $related->name }}">
                         </div>
                         <div class="p-4">
-                             <h3 class="font-bold text-slate-900 mb-1">
-                                <a href="{{ route('products.show', $related->slug) }}" class="hover:text-blue-600 transition-colors">
+                             <h3 class="font-bold text-slate-900 dark:text-white mb-1">
+                                <a href="{{ route('products.show', $related->slug) }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                     {{ $related->name }}
                                 </a>
                             </h3>
-                            <p class="text-xs text-slate-500">{{ $related->category->name }}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ $related->category->name }}</p>
                         </div>
                     </div>
                 @endforeach

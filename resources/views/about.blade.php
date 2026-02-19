@@ -19,24 +19,24 @@
     </div>
 
     <!-- Our Journey -->
-    <section class="py-24 bg-white relative overflow-hidden">
+    <section class="py-24 bg-white dark:bg-slate-800/40 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="relative">
-                    <div class="absolute -top-10 -left-10 w-64 h-64 bg-blue-50 rounded-full blur-[80px] opacity-60"></div>
+                    <div class="absolute -top-10 -left-10 w-64 h-64 bg-blue-50 dark:bg-blue-900/20 rounded-full blur-[80px] opacity-60"></div>
                     <div class="relative z-10 space-y-8">
                         <div>
-                            <span class="text-blue-600 font-black tracking-[0.2em] uppercase text-xs">Our Heritage</span>
-                            <h2 class="text-4xl md:text-5xl font-black text-slate-900 mt-4 tracking-tighter">Decades of Excellence</h2>
+                            <span class="text-blue-600 dark:text-blue-400 font-black tracking-[0.2em] uppercase text-xs">Our Heritage</span>
+                            <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 tracking-tighter">Decades of Excellence</h2>
                             <div class="w-20 h-2 bg-blue-600 mt-6 rounded-full"></div>
                         </div>
                         
-                        <div class="space-y-6 text-slate-600 text-lg font-medium leading-relaxed text-justify">
+                        <div class="space-y-6 text-slate-600 dark:text-slate-300 text-lg font-medium leading-relaxed text-justify">
                             <p>
-                                <strong>Akhlaq Enterprises (PVT) Ltd.</strong> started its operations in 1985, primarily for export of Fresh seafood to the Kingdom of Saudi Arabia. Having management expertise and extensive knowledge of the local and international markets, combined with the ever-increasing demand in the international markets for quality, hygienic, processed seafood from purpose built facilities, allowed the Directors to set up a modern, seafood processing plant in the port city of Karachi-Pakistan commissioned in the year 2001.
+                                <strong class="text-slate-800 dark:text-white">Akhlaq Enterprises (PVT) Ltd.</strong> started its operations in 1985, primarily for export of Fresh seafood to the Kingdom of Saudi Arabia. Having management expertise and extensive knowledge of the local and international markets, combined with the ever-increasing demand in the international markets for quality, hygienic, processed seafood from purpose built facilities, allowed the Directors to set up a modern, seafood processing plant in the port city of Karachi-Pakistan commissioned in the year 2001.
                             </p>
                             <p>
-                                The plate/contact and blast freezers in addition to the cold storage have been designed and imported from a well-known manufacturer in USA <strong>M/S Balmac International (Bally)</strong>. Keeping in mind the importance of a pollution-free environment, Freon 404 was chosen as the refrigerant gas. Similarly, water filtration and sanitation flows have been built according to the latest requirements and standards.
+                                The plate/contact and blast freezers in addition to the cold storage have been designed and imported from a well-known manufacturer in USA <strong class="text-slate-800 dark:text-white">M/S Balmac International (Bally)</strong>. Keeping in mind the importance of a pollution-free environment, Freon 404 was chosen as the refrigerant gas. Similarly, water filtration and sanitation flows have been built according to the latest requirements and standards.
                             </p>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                 
                 <div class="relative group">
                     <div class="absolute inset-0 bg-blue-600 rounded-[3rem] rotate-3 scale-95 opacity-10 group-hover:rotate-6 transition-transform duration-700"></div>
-                    <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-blue-500/10 border-8 border-white">
+                    <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-blue-500/10 border-8 border-white dark:border-slate-700">
                         <img src="{{ asset('images/processing.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="State of the Art Processing Facility">
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/80 p-8">
                             <p class="text-white font-black tracking-widest uppercase text-sm italic">"Modern, Hygienic & Sustainable"</p>
@@ -56,17 +56,17 @@
     </section>
     
     <!-- Quality Policy Section -->
-    <section class="py-24 bg-slate-50 relative overflow-hidden">
+    <section class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-600/5 -skew-x-12 translate-x-32"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="mb-4">
-                    <span class="text-blue-600 font-black tracking-[0.3em] uppercase text-xs">Commitment to Excellence</span>
+                    <span class="text-blue-600 dark:text-blue-400 font-black tracking-[0.3em] uppercase text-xs">Commitment to Excellence</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter">Quality Policy</h2>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter">Quality Policy</h2>
                 <div class="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 mx-auto rounded-full mb-10"></div>
                 
-                <p class="text-slate-600 text-xl font-medium leading-relaxed mb-16 italic">
+                <p class="text-slate-600 dark:text-slate-300 text-xl font-medium leading-relaxed mb-16 italic">
                     "At Akhlaq Enterprises, quality is not just a standard but a commitment. We ensure every catch is processed under the most stringent hygienic conditions, meeting international food safety regulations to deliver the freshest seafood to the global market. Our facilities are built to exceed the expectations of our international partners, ensuring total transparency and excellence from sea to table."
                 </p>
 
