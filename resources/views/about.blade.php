@@ -6,7 +6,7 @@
     <!-- Hero Section -->
     <div class="relative bg-slate-900 py-32 overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <img src="{{ asset('images/hero.png') }}" class="w-full h-full object-cover" alt="Background">
+            <img src="{{ asset('images/hero.webp') }}" class="w-full h-full object-cover" alt="Background" loading="eager" fetchpriority="high">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/60 to-slate-900"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -45,7 +45,7 @@
                 <div class="relative group">
                     <div class="absolute inset-0 bg-blue-600 rounded-[3rem] rotate-3 scale-95 opacity-10 group-hover:rotate-6 transition-transform duration-700"></div>
                     <div class="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl shadow-blue-500/10 border-8 border-white dark:border-slate-700">
-                        <img src="{{ asset('images/processing.png') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="State of the Art Processing Facility">
+                        <img src="{{ asset('images/processing.webp') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" alt="State of the Art Processing Facility" loading="lazy">
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/80 p-8">
                             <p class="text-white font-black tracking-widest uppercase text-sm italic">"Modern, Hygienic & Sustainable"</p>
                         </div>

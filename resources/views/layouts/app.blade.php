@@ -37,6 +37,7 @@
 
     <!-- Styles / Scripts -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="preload" as="image" href="{{ asset('images/hero.webp') }}" fetchpriority="high">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Google Translate (hidden – controlled via our custom widget) -->
@@ -60,7 +61,7 @@
     <div id="page-loader" class="fixed inset-0 z-[1000] bg-white dark:bg-slate-900 flex flex-col items-center justify-center transition-opacity duration-700">
         <div class="relative w-32 h-32 flex items-center justify-center">
             <div class="absolute inset-0 border-4 border-blue-100 dark:border-blue-900 rounded-full animate-ping"></div>
-            <img src="{{ asset('images/logo.png') }}" alt="Loading..." class="w-35 h-24 object-contain relative z-10 animate-pulse">
+            <img src="{{ asset('images/logo.webp') }}" alt="Loading..." class="w-35 h-24 object-contain relative z-10 animate-pulse" loading="eager">
         </div>
         <p class="mt-4 text-blue-600 dark:text-blue-400 font-black tracking-[0.3em] uppercase text-xs animate-pulse">Loading Experience</p>
     </div>
@@ -84,13 +85,18 @@
 
         /* Switch language via the hidden Google Translate combo */
         function setLanguage(langCode) {
-            document.getElementById('lang-panel').classList.add('hidden');
+            /* Close panel with animation */
+            const panel = document.getElementById('lang-panel');
+            if (panel && !panel.classList.contains('hidden')) {
+                panel.classList.remove('panel-open');
+                panel.classList.add('panel-entering');
+                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
+            }
             const select = document.querySelector('.goog-te-combo');
             if (!select) { setTimeout(() => setLanguage(langCode), 500); return; }
             if (langCode === 'en') {
                 select.value = '';
                 select.dispatchEvent(new Event('change'));
-                /* Remove translate cookie so page reloads in English */
                 document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=' + window.location.hostname + '; path=/;';
                 window.location.reload();
@@ -100,22 +106,23 @@
             }
             /* Update active flag */
             document.querySelectorAll('[data-lang]').forEach(el => {
-                el.classList.toggle('bg-blue-50', el.dataset.lang === langCode);
-                el.classList.toggle('dark:bg-blue-900/30', el.dataset.lang === langCode);
-                el.classList.toggle('text-blue-600', el.dataset.lang === langCode);
-                el.classList.toggle('dark:text-blue-400', el.dataset.lang === langCode);
+                const active = el.dataset.lang === langCode;
+                el.classList.toggle('bg-blue-50',         active);
+                el.classList.toggle('dark:bg-blue-900/30',active);
+                el.classList.toggle('text-blue-600',      active);
+                el.classList.toggle('dark:text-blue-400', active);
+                el.classList.toggle('font-bold',          active);
             });
         }
 
-        /* Toggle lang panel + close on outside click */
-        function toggleLangPanel() {
-            const panel = document.getElementById('lang-panel');
-            panel.classList.toggle('hidden');
-        }
+        /* Close on outside click */
         document.addEventListener('click', function(e) {
             const wrap = document.getElementById('lang-btn-wrap');
-            if (wrap && !wrap.contains(e.target)) {
-                document.getElementById('lang-panel').classList.add('hidden');
+            const panel = document.getElementById('lang-panel');
+            if (wrap && !wrap.contains(e.target) && panel && !panel.classList.contains('hidden')) {
+                panel.classList.remove('panel-open');
+                panel.classList.add('panel-entering');
+                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
             }
         });
     </script>
@@ -130,7 +137,7 @@
                 <div class="flex items-center">
                     <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center group gap-5">
                         <div class="h-24 flex items-center">
-                            <img src="{{ asset('images/logo.png') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-105">
+                            <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-105" loading="eager">
                         </div>
                         <div class="flex flex-col">
                             <span class="text-2xl font-black text-slate-800 dark:text-slate-100 leading-none tracking-tight">Akhlaq Enterprises <span class="text-base font-bold text-slate-400 dark:text-slate-500">(Pvt) Ltd</span></span>
@@ -190,63 +197,161 @@
     <!-- ======================================================
          FLOATING SIDE WIDGET — Dark/Light + Language
     ====================================================== -->
-    <div class="fixed right-3 md:right-5 top-1/2 -translate-y-1/2 z-[89] flex flex-col gap-2 items-center select-none">
+    <style>
+        /* Smooth lang-panel open/close animation */
+        #lang-panel {
+            transform-origin: center right;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+        }
+        #lang-panel.hidden { display: none; }
+        #lang-panel.panel-entering {
+            display: block;
+            opacity: 0;
+            transform: translateY(-50%) scaleX(0.92);
+        }
+        #lang-panel.panel-open {
+            opacity: 1;
+            transform: translateY(-50%) scaleX(1);
+        }
+        /* Custom scrollbar for lang list */
+        #lang-list::-webkit-scrollbar { width: 4px; }
+        #lang-list::-webkit-scrollbar-track { background: transparent; }
+        #lang-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        .dark #lang-list::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
 
-        <!-- Dark / Light Toggle -->
-        <button onclick="toggleTheme()" title="Toggle Theme"
-            class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 shadow-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:border-blue-600 text-slate-600 dark:text-slate-300 transition-all duration-200 active:scale-90">
-            <span id="theme-icon-sun" class="hidden">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-            </span>
-            <span id="theme-icon-moon" class="inline-block">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                </svg>
-            </span>
-        </button>
+    <div class="fixed right-4 md:right-5 top-1/2 -translate-y-1/2 z-[89] select-none">
 
-        <!-- Divider -->
-        <div class="w-5 h-px bg-slate-300 dark:bg-slate-600 rounded"></div>
+        <!-- Unified pill card -->
+        <div class="flex flex-col items-center gap-1 p-1.5
+                    bg-white/70 dark:bg-slate-800/70
+                    backdrop-blur-xl
+                    rounded-[1.75rem]
+                    border border-white/80 dark:border-slate-700/60
+                    shadow-[0_4px_24px_rgba(0,0,0,0.10),0_1px_4px_rgba(0,0,0,0.06)]
+                    dark:shadow-[0_4px_24px_rgba(0,0,0,0.45)]">
 
-        <!-- Language Selector -->
-        <div id="lang-btn-wrap" class="relative">
-            <button onclick="toggleLangPanel()" title="Select Language"
-                class="w-11 h-11 flex items-center justify-center rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 shadow-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:border-blue-600 text-slate-600 dark:text-slate-300 transition-all duration-200 active:scale-90">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                </svg>
-            </button>
-
-            <!-- Language Dropdown Panel -->
-            <div id="lang-panel"
-                class="hidden absolute right-14 top-1/2 -translate-y-1/2 w-48 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-                <div class="px-3 pt-3 pb-2 border-b border-slate-100 dark:border-slate-700">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">Select Language</p>
+            <!-- Theme Toggle -->
+            <div class="relative group/theme">
+                <button onclick="toggleTheme()"
+                    class="w-11 h-11 flex items-center justify-center rounded-[1.25rem]
+                           text-slate-500 dark:text-slate-400
+                           hover:bg-blue-600 hover:text-white
+                           dark:hover:bg-blue-600 dark:hover:text-white
+                           transition-all duration-200 active:scale-90">
+                    <span id="theme-icon-sun" class="hidden">
+                        <svg class="w-[1.15rem] h-[1.15rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </span>
+                    <span id="theme-icon-moon" class="inline-block">
+                        <svg class="w-[1.15rem] h-[1.15rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </span>
+                </button>
+                <!-- Tooltip -->
+                <div class="pointer-events-none absolute right-[calc(100%+10px)] top-1/2 -translate-y-1/2
+                            px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide whitespace-nowrap
+                            bg-slate-900 dark:bg-slate-700 text-white
+                            opacity-0 group-hover/theme:opacity-100 transition-opacity duration-150">
+                    <span id="theme-tooltip-text">Dark Mode</span>
+                    <span class="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-slate-900 dark:border-l-slate-700"></span>
                 </div>
-                <div class="max-h-64 overflow-y-auto">
-                    <button data-lang="en"   onclick="setLanguage('en')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇬🇧</span> English</button>
-                    <button data-lang="ar"   onclick="setLanguage('ar')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇸🇦</span> Arabic</button>
-                    <button data-lang="zh-CN" onclick="setLanguage('zh-CN')" class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇨🇳</span> Chinese</button>
-                    <button data-lang="fr"   onclick="setLanguage('fr')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇫🇷</span> French</button>
-                    <button data-lang="de"   onclick="setLanguage('de')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇩🇪</span> German</button>
-                    <button data-lang="hi"   onclick="setLanguage('hi')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇮🇳</span> Hindi</button>
-                    <button data-lang="id"   onclick="setLanguage('id')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇮🇩</span> Indonesian</button>
-                    <button data-lang="ja"   onclick="setLanguage('ja')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇯🇵</span> Japanese</button>
-                    <button data-lang="ko"   onclick="setLanguage('ko')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇰🇷</span> Korean</button>
-                    <button data-lang="ms"   onclick="setLanguage('ms')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇲🇾</span> Malay</button>
-                    <button data-lang="fa"   onclick="setLanguage('fa')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇮🇷</span> Persian</button>
-                    <button data-lang="pt"   onclick="setLanguage('pt')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇧🇷</span> Portuguese</button>
-                    <button data-lang="ru"   onclick="setLanguage('ru')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇷🇺</span> Russian</button>
-                    <button data-lang="es"   onclick="setLanguage('es')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇪🇸</span> Spanish</button>
-                    <button data-lang="tr"   onclick="setLanguage('tr')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇹🇷</span> Turkish</button>
-                    <button data-lang="ur"   onclick="setLanguage('ur')"    class="w-full text-left px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5"><span class="text-base">🇵🇰</span> Urdu</button>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-6 h-px bg-slate-200 dark:bg-slate-700 rounded-full mx-0.5"></div>
+
+            <!-- Language Selector -->
+            <div id="lang-btn-wrap" class="relative group/lang">
+                <button onclick="toggleLangPanel()"
+                    class="w-11 h-11 flex items-center justify-center rounded-[1.25rem]
+                           text-slate-500 dark:text-slate-400
+                           hover:bg-blue-600 hover:text-white
+                           dark:hover:bg-blue-600 dark:hover:text-white
+                           transition-all duration-200 active:scale-90">
+                    <svg class="w-[1.15rem] h-[1.15rem]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                    </svg>
+                </button>
+                <!-- Tooltip -->
+                <div class="pointer-events-none absolute right-[calc(100%+10px)] top-1/2 -translate-y-1/2
+                            px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide whitespace-nowrap
+                            bg-slate-900 dark:bg-slate-700 text-white
+                            opacity-0 group-hover/lang:opacity-100 transition-opacity duration-150">
+                    Translate
+                    <span class="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-slate-900 dark:border-l-slate-700"></span>
+                </div>
+
+                <!-- Language Dropdown Panel -->
+                <div id="lang-panel"
+                    class="hidden absolute right-[3.5rem] top-1/2 -translate-y-1/2 w-52
+                           bg-white/90 dark:bg-slate-800/90 backdrop-blur-2xl
+                           rounded-2xl border border-slate-200/80 dark:border-slate-700/70
+                           shadow-[0_16px_48px_rgba(0,0,0,0.15),0_2px_8px_rgba(0,0,0,0.08)]
+                           dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)]
+                           overflow-hidden">
+                    <div class="px-4 pt-3.5 pb-2.5 border-b border-slate-100 dark:border-slate-700/80 flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                        </svg>
+                        <p class="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500">Language</p>
+                    </div>
+                    <div id="lang-list" class="max-h-[17rem] overflow-y-auto py-1">
+                        <button data-lang="en"    onclick="setLanguage('en')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇬🇧</span> English</button>
+                        <button data-lang="ar"    onclick="setLanguage('ar')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇸🇦</span> Arabic</button>
+                        <button data-lang="zh-CN" onclick="setLanguage('zh-CN')" class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇨🇳</span> Chinese</button>
+                        <button data-lang="fr"    onclick="setLanguage('fr')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇫🇷</span> French</button>
+                        <button data-lang="de"    onclick="setLanguage('de')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇩🇪</span> German</button>
+                        <button data-lang="hi"    onclick="setLanguage('hi')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇳</span> Hindi</button>
+                        <button data-lang="id"    onclick="setLanguage('id')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇩</span> Indonesian</button>
+                        <button data-lang="ja"    onclick="setLanguage('ja')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇯🇵</span> Japanese</button>
+                        <button data-lang="ko"    onclick="setLanguage('ko')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇰🇷</span> Korean</button>
+                        <button data-lang="ms"    onclick="setLanguage('ms')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇲🇾</span> Malay</button>
+                        <button data-lang="fa"    onclick="setLanguage('fa')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇷</span> Persian</button>
+                        <button data-lang="pt"    onclick="setLanguage('pt')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇧🇷</span> Portuguese</button>
+                        <button data-lang="ru"    onclick="setLanguage('ru')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇷🇺</span> Russian</button>
+                        <button data-lang="es"    onclick="setLanguage('es')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇪🇸</span> Spanish</button>
+                        <button data-lang="tr"    onclick="setLanguage('tr')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇹🇷</span> Turkish</button>
+                        <button data-lang="ur"    onclick="setLanguage('ur')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇵🇰</span> Urdu</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- END FLOATING SIDE WIDGET -->
+
+    <script>
+        /* Animated panel open/close */
+        function toggleLangPanel() {
+            const panel = document.getElementById('lang-panel');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                panel.classList.add('panel-entering');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => panel.classList.replace('panel-entering', 'panel-open'));
+                });
+            } else {
+                panel.classList.remove('panel-open');
+                panel.classList.add('panel-entering');
+                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
+            }
+        }
+        /* Update theme tooltip text */
+        function updateThemeTooltip(theme) {
+            const el = document.getElementById('theme-tooltip-text');
+            if (el) el.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = localStorage.getItem('ae-theme') || 'light';
+            updateThemeTooltip(stored);
+        });
+    </script>
 
     <!-- Main Content -->
     <main class="flex-grow">
@@ -263,7 +368,7 @@
                 <!-- Brand -->
                 <div class="space-y-6">
                     <div class="flex items-center gap-5">
-                        <img src="{{ asset('images/logo.png') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto brightness-0 invert opacity-90 object-contain">
+                        <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto brightness-0 invert opacity-90 object-contain" loading="lazy">
                     </div>
                     <p class="text-base leading-relaxed text-slate-400 font-medium pt-2">
                         Redefining seafood exports with a legacy of trust, ethical standards, and premium quality from the heart of Pakistan.

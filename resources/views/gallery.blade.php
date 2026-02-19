@@ -41,7 +41,7 @@
                 @foreach($galleryItems as $category => $items)
                     @foreach($items as $item)
                         <div class="gallery-item group relative overflow-hidden rounded-[2rem] bg-slate-100 aspect-[4/3] transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20" data-category="{{ Str::slug($category) }}">
-                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
                             
                             <!-- Overlay -->
                             <div class="absolute inset-x-0 bottom-0 p-8 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent">

@@ -10,7 +10,7 @@
             
             <!-- Slide 1 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" data-slide="0">
-                <img src="{{ asset('images/hero.png') }}" class="w-full h-full object-cover opacity-60 scale-105 animate-slow-zoom" alt="Ocean Trawler">
+                <img src="{{ asset('images/hero.webp') }}" class="w-full h-full object-cover opacity-60 scale-105 animate-slow-zoom" alt="Ocean Trawler" loading="eager" fetchpriority="high">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-0 opacity-100">
@@ -35,7 +35,7 @@
 
             <!-- Slide 2 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" data-slide="1">
-                <img src="{{ asset('images/fresh-display.png') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Fresh Seafood Display">
+                <img src="{{ asset('images/fresh-display.webp') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Fresh Seafood Display" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-10 opacity-0 relative z-10">
@@ -57,7 +57,7 @@
 
             <!-- Slide 3 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" data-slide="2">
-                <img src="{{ asset('images/processing.png') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Processing Facility">
+                <img src="{{ asset('images/processing.webp') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Processing Facility" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-10 opacity-0 relative z-10">
@@ -246,14 +246,27 @@
 
     <!-- Featured Products Preview with Video Background -->
     <section class="relative py-32 overflow-hidden">
-        <!-- Background Video -->
+        <!-- Background Video (loaded after page interactive via JS) -->
         <div class="absolute inset-0 z-0">
-            <video autoplay muted loop playsinline class="w-full h-full object-cover">
-                <source src="{{ asset('videos/featured-bg.mp4') }}" type="video/mp4">
+            <video id="featured-video" muted loop playsinline class="w-full h-full object-cover" style="background:#0f172a" preload="none">
+                <source data-src="{{ asset('videos/featured-bg.mp4') }}" type="video/mp4">
             </video>
             <!-- Lighter Overlay for better visibility -->
             <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/40 to-slate-900/60"></div>
         </div>
+        <script>
+            (function() {
+                function loadFeaturedVideo() {
+                    var v = document.getElementById('featured-video');
+                    if (!v) return;
+                    var s = v.querySelector('source[data-src]');
+                    if (s) { s.src = s.getAttribute('data-src'); s.removeAttribute('data-src'); }
+                    v.load(); v.play().catch(function(){});
+                }
+                if (document.readyState === 'complete') { loadFeaturedVideo(); }
+                else { window.addEventListener('load', loadFeaturedVideo); }
+            })();
+        </script>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6">

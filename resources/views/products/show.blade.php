@@ -23,7 +23,7 @@
                     <div class="relative aspect-square bg-slate-50 dark:bg-slate-800 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-700 shadow-xl group/main">
                         <img src="{{ asset($product->image) }}" id="main-product-image" 
                              class="object-contain w-full h-full p-8 transition-all duration-700 ease-out transform group-hover/main:scale-110 active:scale-105 cursor-zoom-in"
-                             alt="{{ $product->name }}">
+                             alt="{{ $product->name }}" loading="eager" fetchpriority="high">
                         
                         <!-- Floating Controls -->
                         <div class="absolute bottom-6 right-6 flex gap-2">
@@ -33,18 +33,23 @@
                         </div>
                     </div>
                     
-                    @if($product->gallery && count($product->gallery) > 0)
+                    @php
+                        $galleryImages = collect($product->gallery ?? [])
+                            ->filter(fn($img) => !empty(trim($img ?? '')) && file_exists(public_path($img)))
+                            ->values();
+                    @endphp
+                    @if($galleryImages->count() > 0)
                     <div class="flex gap-4 px-2 overflow-x-auto pb-4 custom-scrollbar">
                         <!-- Main Thumbnail -->
                         <button class="shrink-0 w-24 h-24 rounded-2xl border-2 border-blue-600 p-2 bg-white shadow-md transition-all thumbnail-btn active-thumb" 
                                 onclick="changeProductImage('{{ asset($product->image) }}', this)">
-                            <img src="{{ asset($product->image) }}" class="w-full h-full object-contain">
+                            <img src="{{ asset($product->image) }}" class="w-full h-full object-contain" loading="eager">
                         </button>
                         
-                        @foreach($product->gallery as $img)
+                        @foreach($galleryImages as $img)
                         <button class="shrink-0 w-24 h-24 rounded-2xl border-2 border-transparent hover:border-blue-200 p-2 bg-white shadow-sm hover:shadow-md transition-all thumbnail-btn" 
                                 onclick="changeProductImage('{{ asset($img) }}', this)">
-                            <img src="{{ asset($img) }}" class="w-full h-full object-contain">
+                            <img src="{{ asset($img) }}" class="w-full h-full object-contain" loading="lazy">
                         </button>
                         @endforeach
                     </div>
@@ -127,7 +132,7 @@
                 @foreach($relatedProducts as $related)
                     <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden group hover:shadow-lg transition-all">
                         <div class="h-40 bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
-                             <img src="{{ asset($related->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="{{ $related->name }}">
+                             <img src="{{ asset($related->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="{{ $related->name }}" loading="lazy">
                         </div>
                         <div class="p-4">
                              <h3 class="font-bold text-slate-900 dark:text-white mb-1">

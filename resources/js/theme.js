@@ -33,6 +33,8 @@ function updateToggleIcons(theme) {
         sun.classList.add('hidden');
         moon.classList.remove('hidden');
     }
+    const tooltip = document.getElementById('theme-tooltip-text');
+    if (tooltip) tooltip.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
 }
 
 function toggleTheme() {

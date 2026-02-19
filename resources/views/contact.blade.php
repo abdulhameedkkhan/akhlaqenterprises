@@ -75,18 +75,6 @@
                         </div>
                     </div>
 
-                    <div class="mt-10 rounded-3xl overflow-hidden shadow-2xl h-80 bg-slate-200 dark:bg-slate-700 relative border-4 border-white dark:border-slate-600">
-                        <!-- Live Google Map -->
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.3475176523996!2d66.97431341500473!3d24.85191898405816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e1b00000001%3A0x6b7ca9f52803b9b9!2sKarachi%20Fish%20Harbour!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
                 </div>
 
                 <!-- Contact Form -->
@@ -145,4 +133,90 @@
             </div>
         </div>
     </section>
+
+    <!-- ── Full-Width Map Section ─────────────────────────────────────────── -->
+    <section class="relative bg-slate-100 dark:bg-slate-900 pt-0 pb-0 overflow-hidden">
+
+        <!-- Decorative top edge -->
+        <div class="h-12 bg-white dark:bg-slate-800/40 relative z-10" style="clip-path: ellipse(55% 100% at 50% 0%)"></div>
+
+        <div class="relative">
+
+            <!-- Map wrapper — full width -->
+            <div class="relative -mt-2 overflow-hidden"
+                 style="height: 520px;">
+
+                <!-- Google Map iframe — Akhlaq Enterprises Pvt Ltd exact location -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.037825!2d66.9770118!3d24.8511112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb315e70250eaab%3A0xa36ea30e3e63343e!2sAkhlaq%20Enterprises%20Pvt%20Ltd!5e0!3m2!1sen!2s!4v1740000000000!5m2!1sen!2s"
+                    width="100%"
+                    height="100%"
+                    style="border:0; display:block;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <!-- Info overlay card — bottom left -->
+                <div class="absolute bottom-5 left-5 z-10
+                            bg-white/92 dark:bg-slate-800/92 backdrop-blur-xl
+                            rounded-2xl p-5 max-w-xs w-full
+                            shadow-[0_8px_32px_rgba(0,0,0,0.14)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]
+                            border border-white/80 dark:border-slate-700/70">
+
+                    <!-- Pin icon + name -->
+                    <div class="flex items-start gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-600/30">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-black text-slate-900 dark:text-white text-sm leading-tight">Akhlaq Enterprises Pvt Ltd</p>
+                            <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 font-medium">Fish Harbour, Karachi</p>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="flex items-start gap-2.5 mb-4 pl-1">
+                        <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <p class="text-[12px] text-slate-600 dark:text-slate-300 font-medium leading-relaxed">F-2 Fish Harbour Road,<br>Karachi, Pakistan</p>
+                    </div>
+
+                    <!-- Directions button -->
+                    <a href="https://www.google.com/maps/place/Akhlaq+Enterprises+Pvt+Ltd/@24.8511112,66.9770118,17z/data=!3m1!4b1!4m6!3m5!1s0x3eb315e70250eaab:0xa36ea30e3e63343e!8m2!3d24.8511064!4d66.9795867!16s%2Fg%2F113g7jcsj"
+                       target="_blank" rel="noopener"
+                       class="flex items-center justify-center gap-2 w-full
+                              bg-blue-600 hover:bg-blue-700
+                              text-white text-[12px] font-bold
+                              py-2.5 px-4 rounded-xl
+                              transition-all duration-200 active:scale-95
+                              shadow-md shadow-blue-600/30">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                        </svg>
+                        Get Directions
+                    </a>
+                </div>
+
+                <!-- EU Reg badge — top right -->
+                <div class="absolute top-4 right-4 z-10
+                            bg-white/85 dark:bg-slate-800/85 backdrop-blur-md
+                            px-3 py-1.5 rounded-xl
+                            border border-white/70 dark:border-slate-700/60
+                            shadow-md">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400">
+                        EU Reg. TEC/90/01 · FAO Zone 51
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom padding -->
+            <div class="h-16"></div>
+        </div>
+    </section>
+    <!-- ── END Map Section ────────────────────────────────────────────────── -->
 @endsection

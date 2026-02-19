@@ -21,10 +21,23 @@
     </style>
     <!-- Premium Video Hero (Industry Specific) -->
     <div class="relative py-32 overflow-hidden group">
-        <!-- Main Background Video -->
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[20s] ease-out">
-            <source src="{{ asset('videos/products-bg.mp4') }}" type="video/mp4">
+        <!-- Main Background Video (deferred load) -->
+        <video id="products-video" muted loop playsinline class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-[20s] ease-out" style="background:#0f172a" preload="none">
+            <source data-src="{{ asset('videos/products-bg.mp4') }}" type="video/mp4">
         </video>
+        <script>
+            (function() {
+                function loadProductsVideo() {
+                    var v = document.getElementById('products-video');
+                    if (!v) return;
+                    var s = v.querySelector('source[data-src]');
+                    if (s) { s.src = s.getAttribute('data-src'); s.removeAttribute('data-src'); }
+                    v.load(); v.play().catch(function(){});
+                }
+                if (document.readyState === 'complete') { loadProductsVideo(); }
+                else { window.addEventListener('load', loadProductsVideo); }
+            })();
+        </script>
         
         <!-- Premium Overlays -->
         <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-transparent"></div>
