@@ -10,23 +10,23 @@
             
             <!-- Slide 1 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100" data-slide="0">
-                <img src="{{ asset('images/hero.webp') }}" class="w-full h-full object-cover opacity-60 scale-105 animate-slow-zoom" alt="Ocean Trawler" loading="eager" fetchpriority="high">
+                <img src="{{ asset('images/hero.webp') }}" class="w-full h-full object-cover opacity-60 scale-105 animate-slow-zoom" alt="Ocean Trawler" width="1920" height="700" fetchpriority="high">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-0 opacity-100">
                         <span class="inline-block py-1 px-4 rounded-full bg-blue-600/80 border border-blue-400/50 text-white text-sm font-bold tracking-widest mb-6 backdrop-blur-sm uppercase">Global Exporters</span>
                         <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight mb-8 leading-tight drop-shadow-2xl">
-                            Freshness from the Ocean,<br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-400">Delivered to the World</span>
+                            {{ __('common.hero_title') }}
                         </h1>
                         <p class="text-xl md:text-2xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed">
-                            Pioneering sustainable seafood export with unmatched quality and reliability since 2000.
+                            {{ __('common.hero_subtitle') }}
                         </p>
                         <div class="flex flex-col sm:flex-row gap-5 justify-center">
                             <a href="{{ route('products.index') }}" class="px-8 py-4 bg-blue-600 text-white rounded-full font-bold shadow-lg hover:bg-blue-700 hover:shadow-blue-600/40 transition-all transform hover:-translate-y-1 hover:scale-105 border border-transparent">
-                                Explore Our Products
+                                {{ __('common.explore_products') }}
                             </a>
                             <a href="{{ route('contact') }}" class="px-8 py-4 bg-transparent border-2 border-white/80 text-white rounded-full font-bold hover:bg-white hover:text-slate-900 transition-all transform hover:-translate-y-1 backdrop-blur-sm">
-                                Contact Us
+                                {{ __('common.contact_us') }}
                             </a>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
 
             <!-- Slide 2 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" data-slide="1">
-                <img src="{{ asset('images/fresh-display.webp') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Fresh Seafood Display" loading="lazy">
+                <img data-src="{{ asset('images/fresh-display.webp') }}" class="w-full h-full object-cover opacity-60 scale-105 lazy-slider" alt="Fresh Seafood Display" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-10 opacity-0 relative z-10">
@@ -57,7 +57,7 @@
 
             <!-- Slide 3 -->
             <div class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0" data-slide="2">
-                <img src="{{ asset('images/processing.webp') }}" class="w-full h-full object-cover opacity-60 scale-105" alt="Processing Facility" loading="lazy">
+                <img data-src="{{ asset('images/processing.webp') }}" class="w-full h-full object-cover opacity-60 scale-105 lazy-slider" alt="Processing Facility" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-black/30"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-5xl mx-auto transform transition-all duration-1000 translate-y-10 opacity-0 relative z-10">
@@ -102,7 +102,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-20">
                 <span class="text-blue-600 dark:text-blue-400 font-bold tracking-wider uppercase text-sm">Why We Are Leads</span>
-                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white mt-2 mb-4">Why Choose Akhlaq Enterprises?</h2>
+                <h2 class="text-4xl font-extrabold text-slate-900 dark:text-white mt-2 mb-4">{{ __('common.why_choose') }}</h2>
                 <div class="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-cyan-400 mx-auto rounded-full"></div>
             </div>
             
@@ -111,9 +111,9 @@
                     <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors duration-300">
                         <svg class="w-8 h-8 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Freshness Guaranteed</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ __('common.freshness_guaranteed') }}</h3>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Our rapid logistics and immediate processing ensure that the ocean's freshness is locked in from the moment of catch to delivery.
+                        {{ __('common.freshness_desc') }}
                     </p>
                 </div>
 
@@ -121,9 +121,9 @@
                     <div class="w-16 h-16 bg-cyan-50 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-cyan-600 transition-colors duration-300">
                         <svg class="w-8 h-8 text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Global Standards</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ __('common.global_standards') }}</h3>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Compliant with international food safety regulations including HACCP, ISO, and EU standards, ensuring risk-free global trade.
+                        {{ __('common.global_standards_desc') }}
                     </p>
                 </div>
 
@@ -131,9 +131,9 @@
                     <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-emerald-600 transition-colors duration-300">
                         <svg class="w-8 h-8 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Premium Quality</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ __('common.premium_quality') }}</h3>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                        We don't just sell seafood; we sell an experience. Strict quality control means you only get the best, every single time.
+                        {{ __('common.premium_quality_desc') }}
                     </p>
                 </div>
             </div>
@@ -142,6 +142,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Lazy load slider images
+            setTimeout(() => {
+                document.querySelectorAll('.lazy-slider[data-src]').forEach(img => {
+                    img.src = img.getAttribute('data-src');
+                    img.removeAttribute('data-src');
+                });
+            }, 100);
+
             const slides = document.querySelectorAll('[data-slide]');
             const indicators = document.querySelectorAll('[data-indicator]');
             const prevBtn = document.getElementById('prev-slide');
@@ -272,11 +280,11 @@
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6">
                 <div class="text-center md:text-left">
                     <span class="inline-block py-1 px-3 rounded-lg bg-blue-500/20 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 border border-blue-500/30">Harvest of the Day</span>
-                    <h2 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">Our Featured Products</h2>
-                    <p class="text-slate-400 text-lg max-w-xl font-medium">Exceptional quality seafood selected for global export standards.</p>
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">{{ __('common.featured_products') }}</h2>
+                    <p class="text-slate-400 text-lg max-w-xl font-medium">{{ __('common.featured_subtitle') }}</p>
                 </div>
                 <a href="{{ route('products.index') }}" class="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-2xl font-bold border border-white/20 transition-all duration-300 backdrop-blur-md">
-                    Explore Full Catalog 
+                    {{ __('common.explore_catalog') }}
                     <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
             </div>
@@ -286,7 +294,7 @@
                 <!-- Product Card -->
                 <div class="group bg-white/5 backdrop-blur-xl rounded-[2.5rem] border border-white/10 overflow-hidden hover:bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-3">
                     <div class="h-64 relative overflow-hidden m-4 rounded-[2rem] bg-white flex items-center justify-center p-6">
-                        <img src="{{ asset($item->image) }}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-700" alt="{{ $item->name }}">
+                        <img src="{{ asset($item->image) }}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-700" alt="{{ $item->name }}" width="256" height="256" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
                     <div class="p-8 pt-2">
@@ -297,7 +305,7 @@
                              {{ $item->description }}
                         </p>
                         <a href="{{ route('products.show', $item->slug) }}" class="inline-flex items-center text-blue-400 group-hover:text-blue-600 font-black text-sm uppercase tracking-widest">
-                            Details <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            {{ __('common.view_details') }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </a>
                     </div>
                 </div>
@@ -317,8 +325,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-20">
                 <span class="text-blue-600 dark:text-blue-400 font-bold tracking-[0.3em] uppercase text-xs">Uncompromising Standards</span>
-                <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 mb-6 tracking-tighter text-balance">The Akhlaq Quality Lifecycle</h2>
-                <p class="text-slate-500 dark:text-slate-300 text-lg max-w-2xl mx-auto">From the deep blue Arabian Sea to markets across the globe, we ensure every step maintains the highest standards of seafood.</p>
+                <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mt-4 mb-6 tracking-tighter text-balance">{{ __('common.quality_lifecycle') }}</h2>
+                <p class="text-slate-500 dark:text-slate-300 text-lg max-w-2xl mx-auto">{{ __('common.quality_subtitle') }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
@@ -326,26 +334,26 @@
 
                 <div class="relative z-10 text-center group">
                     <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-500">01</div>
-                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">Fresh Catch</h3>
-                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">Direct sourcing from verified local vessels at the Karachi Fish Harbour.</p>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">{{ __('common.fresh_catch') }}</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">{{ __('common.fresh_catch_desc') }}</p>
                 </div>
 
                 <div class="relative z-10 text-center group">
                     <div class="w-20 h-20 bg-slate-900 dark:bg-slate-700 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl group-hover:rotate-12 transition-transform duration-500">02</div>
-                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">Sort & Inspect</h3>
-                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">Stringent quality grading by experts to ensure only premium grade products move forward.</p>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">{{ __('common.sort_inspect') }}</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">{{ __('common.sort_inspect_desc') }}</p>
                 </div>
 
                 <div class="relative z-10 text-center group">
                     <div class="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl shadow-blue-500/30 group-hover:rotate-12 transition-transform duration-500">03</div>
-                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">Flash Frozen</h3>
-                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">Rapid blast freezing at -40°C to lock in nutrients and natural flavor.</p>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">{{ __('common.flash_frozen') }}</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">{{ __('common.flash_frozen_desc') }}</p>
                 </div>
 
                 <div class="relative z-10 text-center group">
                     <div class="w-20 h-20 bg-slate-900 dark:bg-slate-700 rounded-3xl flex items-center justify-center text-white text-2xl font-black mx-auto mb-8 shadow-xl group-hover:rotate-12 transition-transform duration-500">04</div>
-                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">Global Export</h3>
-                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">Seamless cold-chain logistics ensures safe arrival at any port worldwide.</p>
+                    <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-3">{{ __('common.global_export') }}</h3>
+                    <p class="text-slate-500 dark:text-slate-300 text-sm leading-relaxed px-4">{{ __('common.global_export_desc') }}</p>
                 </div>
             </div>
         </div>
@@ -358,19 +366,19 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
                 <div class="p-8">
                     <span class="block text-5xl md:text-6xl font-black text-blue-500 mb-2">25+</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Years Experience</span>
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">{{ __('common.years_experience') }}</span>
                 </div>
                 <div class="p-8 border-l border-slate-800">
                     <span class="block text-5xl md:text-6xl font-black text-white mb-2">40+</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Global Destinations</span>
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">{{ __('common.global_destinations') }}</span>
                 </div>
                 <div class="p-8 border-l border-slate-800">
                     <span class="block text-5xl md:text-6xl font-black text-blue-500 mb-2">15k</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Tons Shipped</span>
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">{{ __('common.tons_shipped') }}</span>
                 </div>
                 <div class="p-8 border-l border-slate-800">
                     <span class="block text-5xl md:text-6xl font-black text-white mb-2">100%</span>
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">Quality Compliance</span>
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-xs">{{ __('common.quality_compliance') }}</span>
                 </div>
             </div>
         </div>
@@ -385,12 +393,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="bg-slate-900 rounded-[3rem] p-12 md:p-20 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-none">Partner with the<br><span class="text-blue-500">Industry Leaders.</span></h2>
-                    <p class="text-slate-400 text-xl max-w-lg font-medium">Get a customized quote for your bulk seafood requirements today. We provide worldwide shipping with guaranteed freshness. </p>
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter leading-none">{{ __('common.partner_with_us') }}</h2>
+                    <p class="text-slate-400 text-xl max-w-lg font-medium">{{ __('common.partner_desc') }}</p>
                 </div>
                 <div class="shrink-0">
                     <a href="{{ route('contact') }}" class="group relative inline-flex items-center gap-4 px-12 py-6 bg-blue-600 text-white font-extrabold text-xl rounded-2xl shadow-2xl shadow-blue-600/40 hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:-translate-y-2">
-                        Get Started Now
+                        {{ __('common.get_started') }}
                         <svg class="w-6 h-6 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                 </div>

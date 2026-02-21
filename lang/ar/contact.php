@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'page_title' => 'اتصل بنا - أخلاق إنتربرايزز',
+    'connect_badge' => 'تواصل معنا',
+    'hero_title' => 'تواصل معنا',
+    'hero_subtitle' => 'نحن متاحون على مدار الساعة للإجابة على استفساراتك. سواء كنت تبحث عن منتج معين أو تريد مناقشة عقد طويل الأجل، فريقنا هنا لمساعدتك.',
+    'name_label' => 'اسمك',
+    'first_name' => 'الاسم الأول',
+    'last_name' => 'اسم العائلة',
+    'name_placeholder' => 'أدخل اسمك الكامل',
+    'email_label' => 'البريد الإلكتروني',
+    'email_placeholder' => 'you@company.com',
+    'phone_label' => 'رقم الهاتف',
+    'phone_placeholder' => '+966 50 123 4567',
+    'message_label' => 'الرسالة / استفسار المنتج',
+    'message_placeholder' => 'أخبرنا عما تبحث عنه...',
+    'send_message' => 'أرسل رسالة',
+    'office_location' => 'المكتب الرئيسي',
+    'call_us' => 'أرقام الهاتف',
+    'email_us' => 'البريد الإلكتروني',
+    'whatsapp_title' => 'دعم واتساب',
+    'whatsapp_desc' => 'رد فوري لاستفسارات المنتجات.',
+    'chat_now' => 'ابدأ المحادثة الآن',
+];

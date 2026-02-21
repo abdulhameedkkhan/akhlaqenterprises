@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'page_title' => 'رابطہ کریں - اخلاق انٹرپرائزز',
+    'connect_badge' => 'ہم سے رابطہ کریں',
+    'hero_title' => 'ہم سے رابطہ کریں',
+    'hero_subtitle' => 'آپ کے سوالات کے جوابات کے لیے ہم 24/7 دستیاب ہیں۔ خواہ آپ کوئی خاص مصنوعات تلاش کر رہے ہوں یا طویل مدتی معاہدے پر بات کرنا چاہتے ہوں، ہماری ٹیم مدد کے لیے موجود ہے۔',
+    'name_label' => 'آپ کا نام',
+    'first_name' => 'پہلا نام',
+    'last_name' => 'آخری نام',
+    'name_placeholder' => 'اپنا پورا نام درج کریں',
+    'email_label' => 'ای میل',
+    'email_placeholder' => 'you@company.com',
+    'phone_label' => 'فون نمبر',
+    'phone_placeholder' => '+92 333 1234567',
+    'message_label' => 'پیغام / مصنوعات کی انکوائری',
+    'message_placeholder' => 'ہمیں بتائیں آپ کیا تلاش کر رہے ہیں...',
+    'send_message' => 'پیغام بھیجیں',
+    'office_location' => 'ہیڈ آفس',
+    'call_us' => 'فون نمبرز',
+    'email_us' => 'ای میل',
+    'whatsapp_title' => 'واٹس ایپ سپورٹ',
+    'whatsapp_desc' => 'مصنوعات کے سوالات کے لیے فوری جواب۔',
+    'chat_now' => 'ابھی چیٹ کریں',
+];

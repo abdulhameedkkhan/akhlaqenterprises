@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selector Test Page</title>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .success { background: #dcfce7; color: #166534; }
+        .error { background: #fee2e2; color: #991b1b; }
+        .info { background: #dbeafe; color: #1e40af; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover { background: #2563eb; }
+        #google_translate_element {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .log {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #334155;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌐 Language Selector Debug Page</h1>
+    
+    <div id="status" class="status info">
+        ⏳ Initializing Google Translate...
+    </div>
+
+    <div id="google_translate_element"></div>
+
+    <div class="test-content">
+        <h2>Test Content (English)</h2>
+        <p>This is a sample paragraph that should be translated when you select a different language.</p>
+        <p>Hello! Welcome to Akhlaq Enterprises. We export premium seafood worldwide.</p>
+        <ul>
+            <li>Fresh Fish</li>
+            <li>Frozen Shrimp</li>
+            <li>Premium Crab</li>
+            <li>Quality Octopus</li>
+        </ul>
+    </div>
+
+    <h3>Quick Language Test Buttons:</h3>
+    <div>
+        <button onclick="testLanguage('en')">English</button>
+        <button onclick="testLanguage('ur')">اردو (Urdu)</button>
+        <button onclick="testLanguage('ar')">العربية (Arabic)</button>
+        <button onclick="testLanguage('zh-CN')">中文 (Chinese)</button>
+        <button onclick="testLanguage('hi')">हिन्दी (Hindi)</button>
+        <button onclick="testLanguage('es')">Español (Spanish)</button>
+    </div>
+
+    <h3>Debug Console:</h3>
+    <div id="debug-log" class="log">
+        <div class="log-entry">🔍 Waiting for Google Translate to load...</div>
+    </div>
+
+    <script>
+        const debugLog = document.getElementById('debug-log');
+        const statusDiv = document.getElementById('status');
+
+        function log(message, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const emoji = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `[${time}] ${emoji} ${message}`;
+            debugLog.appendChild(entry);
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(message);
+        }
+
+        function googleTranslateElementInit() {
+            log('Google Translate script loaded', 'info');
+            
+            if (typeof google !== 'undefined' && google.translate) {
+                try {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'en',
+                        includedLanguages: 'ar,zh-CN,fr,de,hi,id,ja,ko,ms,fa,pt,ru,es,tr,ur',
+                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                        autoDisplay: false,
+                        multilanguagePage: true
+                    }, 'google_translate_element');
+                    
+                    log('Google Translate initialized successfully', 'success');
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ Google Translate is READY! Click buttons above to test.';
+                    
+                    // Wait for select to appear
+                    setTimeout(() => {
+                        const select = document.querySelector('.goog-te-combo');
+                        if (select) {
+                            log('Language selector found: ' + select.options.length + ' languages available', 'success');
+                        } else {
+                            log('Warning: Language selector not found', 'error');
+                        }
+                    }, 1000);
+                    
+                } catch (e) {
+                    log('Error initializing: ' + e.message, 'error');
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '❌ Error: ' + e.message;
+                }
+            } else {
+                log('Google Translate object not found', 'error');
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '❌ Google Translate failed to load';
+            }
+        }
+
+        function testLanguage(langCode) {
+            log('Testing language: ' + langCode, 'info');
+            const select = document.querySelector('.goog-te-combo');
+            
+            if (!select) {
+                log('ERROR: Selector not found! Google Translate not ready.', 'error');
+                alert('Google Translate not ready yet. Wait 2 seconds and try again.');
+                return;
+            }
+            
+            log('Found selector, setting value to: ' + langCode, 'info');
+            
+            if (langCode === 'en') {
+                select.value = '';
+                log('Cleared selection (English)', 'info');
+            } else {
+                select.value = langCode;
+                log('Set selection to: ' + langCode, 'info');
+            }
+            
+            const event = new Event('change', { bubbles: true });
+            select.dispatchEvent(event);
+            log('Change event dispatched', 'info');
+            
+            // Set cookie
+            if (langCode !== 'en') {
+                document.cookie = 'googtrans=/en/' + langCode + '; path=/;';
+                log('Cookie set: googtrans=/en/' + langCode, 'success');
+            } else {
+                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                log('Cookie cleared (English)', 'success');
+                setTimeout(() => window.location.reload(), 500);
+            }
+            
+            // Check if translation happened
+            setTimeout(() => {
+                const body = document.body.innerHTML;
+                if (body.includes('skiptranslate') || body.includes('translated')) {
+                    log('Translation detected in DOM ✅', 'success');
+                } else {
+                    log('Translation may not have applied yet...', 'info');
+                }
+            }, 2000);
+        }
+
+        // Monitor for changes
+        setTimeout(() => {
+            log('Checking Google Translate status...', 'info');
+            if (typeof google !== 'undefined' && google.translate) {
+                log('Google object found ✅', 'success');
+            } else {
+                log('Google object not found ❌', 'error');
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

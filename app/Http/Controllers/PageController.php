@@ -8,7 +8,9 @@ class PageController extends Controller
 {
     public function index()
     {
-        $featuredProducts = \App\Models\Product::with('category')->inRandomOrder()->limit(4)->get();
+        $featuredProducts = \Cache::remember('featured_products', 3600, function() {
+            return \App\Models\Product::with('category')->limit(4)->get();
+        });
         return view('home', compact('featuredProducts'));
     }
 
@@ -21,7 +23,9 @@ class PageController extends Controller
 
     public function gallery()
     {
-        $galleryItems = \App\Models\Gallery::all()->groupBy('category');
+        $galleryItems = \Cache::remember('gallery_items', 3600, function() {
+            return \App\Models\Gallery::all()->groupBy('category');
+        });
         return view('gallery', compact('galleryItems'));
     }
 

@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'page_title' => 'Contact Us - Akhlaq Enterprises',
+    'connect_badge' => 'Connect with Us',
+    'hero_title' => 'Get In Touch',
+    'hero_subtitle' => 'We are available 24/7 to answer your queries. Whether you are looking for a specific product or want to discuss a long-term contract, our team is here to help.',
+    'name_label' => 'Your Name',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'name_placeholder' => 'Enter your full name',
+    'email_label' => 'Email',
+    'email_placeholder' => 'you@company.com',
+    'phone_label' => 'Phone Number',
+    'phone_placeholder' => '+1 (555) 000-0000',
+    'message_label' => 'Message / Product Inquiry',
+    'message_placeholder' => 'Tell us what you are looking for...',
+    'send_message' => 'Send Message',
+    'office_location' => 'Head Office',
+    'call_us' => 'Phone Numbers',
+    'email_us' => 'Email',
+    'whatsapp_title' => 'WhatsApp Support',
+    'whatsapp_desc' => 'Instant reply for product queries.',
+    'chat_now' => 'Chat Now',
+];

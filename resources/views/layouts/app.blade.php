@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ in_array(app()->getLocale(), ['ar', 'ur']) ? 'rtl' : 'ltr' }}" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,10 @@
     <meta name="author" content="Akhlaq Enterprises">
     <link rel="canonical" href="{{ url()->current() }}">
 
+    <!-- DNS Prefetch & Preconnect -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
@@ -32,103 +36,16 @@
     <meta property="og:image" content="{{ asset('images/logo.png') }}">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Styles / Scripts -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
-    <link rel="preload" as="image" href="{{ asset('images/hero.webp') }}" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ asset('images/hero.webp') }}" fetchpriority="high" imagesrcset="{{ asset('images/hero.webp') }} 1920w" imagesizes="100vw">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Google Translate (hidden – controlled via our custom widget) -->
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
-
-    <style>
-        /* Hide Google Translate toolbar/banner that pushes body down */
-        .goog-te-banner-frame.skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-        /* Hide Google branding but keep the select accessible */
-        #google_translate_element { position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none; }
-        .goog-te-gadget-simple { border: none !important; background: transparent !important; }
-        /* Custom lang scrollbar */
-        #lang-panel::-webkit-scrollbar { width: 3px; }
-        #lang-panel::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    </style>
 </head>
 <body class="font-sans antialiased bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 flex flex-col min-h-screen transition-colors duration-300">
-
-    <!-- Page Loader -->
-    <div id="page-loader" class="fixed inset-0 z-[1000] bg-white dark:bg-slate-900 flex flex-col items-center justify-center transition-opacity duration-700">
-        <div class="relative w-32 h-32 flex items-center justify-center">
-            <div class="absolute inset-0 border-4 border-blue-100 dark:border-blue-900 rounded-full animate-ping"></div>
-            <img src="{{ asset('images/logo.webp') }}" alt="Loading..." class="w-35 h-24 object-contain relative z-10 animate-pulse" loading="eager">
-        </div>
-        <p class="mt-4 text-blue-600 dark:text-blue-400 font-black tracking-[0.3em] uppercase text-xs animate-pulse">Loading Experience</p>
-    </div>
-
-    <script>
-        window.addEventListener('load', function() {
-            const loader = document.getElementById('page-loader');
-            loader.style.opacity = '0';
-            setTimeout(() => { loader.style.display = 'none'; }, 700);
-        });
-
-        /* Google Translate init */
-        function googleTranslateElementInit() {
-            if (typeof google !== 'undefined' && google.translate) {
-                new google.translate.TranslateElement(
-                    { pageLanguage: 'en', includedLanguages: 'ar,zh-CN,fr,de,hi,id,ja,ko,ms,fa,pt,ru,es,tr,ur' },
-                    'google_translate_element'
-                );
-            }
-        }
-
-        /* Switch language via the hidden Google Translate combo */
-        function setLanguage(langCode) {
-            /* Close panel with animation */
-            const panel = document.getElementById('lang-panel');
-            if (panel && !panel.classList.contains('hidden')) {
-                panel.classList.remove('panel-open');
-                panel.classList.add('panel-entering');
-                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
-            }
-            const select = document.querySelector('.goog-te-combo');
-            if (!select) { setTimeout(() => setLanguage(langCode), 500); return; }
-            if (langCode === 'en') {
-                select.value = '';
-                select.dispatchEvent(new Event('change'));
-                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=' + window.location.hostname + '; path=/;';
-                window.location.reload();
-            } else {
-                select.value = langCode;
-                select.dispatchEvent(new Event('change'));
-            }
-            /* Update active flag */
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                const active = el.dataset.lang === langCode;
-                el.classList.toggle('bg-blue-50',         active);
-                el.classList.toggle('dark:bg-blue-900/30',active);
-                el.classList.toggle('text-blue-600',      active);
-                el.classList.toggle('dark:text-blue-400', active);
-                el.classList.toggle('font-bold',          active);
-            });
-        }
-
-        /* Close on outside click */
-        document.addEventListener('click', function(e) {
-            const wrap = document.getElementById('lang-btn-wrap');
-            const panel = document.getElementById('lang-panel');
-            if (wrap && !wrap.contains(e.target) && panel && !panel.classList.contains('hidden')) {
-                panel.classList.remove('panel-open');
-                panel.classList.add('panel-entering');
-                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
-            }
-        });
-    </script>
-
-    <!-- Hidden Google Translate anchor -->
-    <div id="google_translate_element"></div>
 
     <!-- Navigation -->
     <nav class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 sticky top-0 w-full z-50 transition-all duration-300 shadow-sm">
@@ -137,7 +54,7 @@
                 <div class="flex items-center">
                     <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center group gap-5">
                         <div class="h-24 flex items-center">
-                            <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-105" loading="eager">
+                            <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto object-contain transition-transform duration-500 group-hover:scale-105" width="80" height="80" fetchpriority="high">
                         </div>
                         <div class="flex flex-col">
                             <span class="text-2xl font-black text-slate-800 dark:text-slate-100 leading-none tracking-tight">Akhlaq Enterprises <span class="text-base font-bold text-slate-400 dark:text-slate-500">(Pvt) Ltd</span></span>
@@ -149,23 +66,23 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-10">
                     <a href="{{ route('home') }}" class="relative group py-2">
-                        <span class="text-sm font-bold {{ request()->routeIs('home') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Home</span>
+                        <span class="text-sm font-bold {{ request()->routeIs('home') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ __('common.home') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 {{ request()->routeIs('home') ? 'scale-x-100' : '' }} transition-transform origin-left"></span>
                     </a>
                     <a href="{{ route('about') }}" class="relative group py-2">
-                        <span class="text-sm font-bold {{ request()->routeIs('about') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">About</span>
+                        <span class="text-sm font-bold {{ request()->routeIs('about') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ __('common.about') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 {{ request()->routeIs('about') ? 'scale-x-100' : '' }} transition-transform origin-left"></span>
                     </a>
                     <a href="{{ route('gallery') }}" class="relative group py-2">
-                        <span class="text-sm font-bold {{ request()->routeIs('gallery') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Gallery</span>
+                        <span class="text-sm font-bold {{ request()->routeIs('gallery') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ __('common.gallery') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 {{ request()->routeIs('gallery') ? 'scale-x-100' : '' }} transition-transform origin-left"></span>
                     </a>
                     <a href="{{ route('products.index') }}" class="relative group py-2">
-                        <span class="text-sm font-bold {{ request()->routeIs('products.*') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Products</span>
+                        <span class="text-sm font-bold {{ request()->routeIs('products.*') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-300' }} group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ __('common.products') }}</span>
                         <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 {{ request()->routeIs('products.*') ? 'scale-x-100' : '' }} transition-transform origin-left"></span>
                     </a>
                     <a href="{{ route('contact') }}" class="px-7 py-3 rounded-2xl bg-slate-900 dark:bg-blue-600 text-white text-sm font-bold shadow-2xl hover:bg-blue-600 hover:shadow-blue-500/40 transition-all transform hover:-translate-y-1 active:scale-95 {{ request()->routeIs('contact') ? '!bg-blue-600 shadow-blue-500/40' : '' }}">
-                        Contact Us
+                        {{ __('common.contact') }}
                     </a>
                 </div>
 
@@ -183,12 +100,12 @@
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-700" id="mobile-menu">
             <div class="px-4 pt-4 pb-6 space-y-2 shadow-2xl">
-                <a href="{{ route('home') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">Home</a>
-                <a href="{{ route('about') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('about') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">About Us</a>
-                <a href="{{ route('gallery') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('gallery') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">Gallery</a>
-                <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('products.*') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">Products</a>
+                <a href="{{ route('home') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('home') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">{{ __('common.home') }}</a>
+                <a href="{{ route('about') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('about') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">{{ __('common.about') }}</a>
+                <a href="{{ route('gallery') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('gallery') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">{{ __('common.gallery') }}</a>
+                <a href="{{ route('products.index') }}" class="flex items-center px-4 py-3 rounded-xl text-base font-bold {{ request()->routeIs('products.*') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800' }}">{{ __('common.products') }}</a>
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-700">
-                    <a href="{{ route('contact') }}" class="flex items-center justify-center px-4 py-4 rounded-xl text-base font-extrabold bg-blue-600 text-white shadow-lg shadow-blue-500/30">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="flex items-center justify-center px-4 py-4 rounded-xl text-base font-extrabold bg-blue-600 text-white shadow-lg shadow-blue-500/30">{{ __('common.contact') }}</a>
                 </div>
             </div>
         </div>
@@ -262,11 +179,8 @@
                 </div>
             </div>
 
-            <!-- Divider -->
-            <div class="w-6 h-px bg-slate-200 dark:bg-slate-700 rounded-full mx-0.5"></div>
-
             <!-- Language Selector -->
-            <div id="lang-btn-wrap" class="relative group/lang">
+            <div class="relative group/lang">
                 <button onclick="toggleLangPanel()"
                     class="w-11 h-11 flex items-center justify-center rounded-[1.25rem]
                            text-slate-500 dark:text-slate-400
@@ -283,75 +197,60 @@
                             px-2.5 py-1 rounded-lg text-[11px] font-bold tracking-wide whitespace-nowrap
                             bg-slate-900 dark:bg-slate-700 text-white
                             opacity-0 group-hover/lang:opacity-100 transition-opacity duration-150">
-                    Translate
+                    Language
                     <span class="absolute left-full top-1/2 -translate-y-1/2 border-4 border-transparent border-l-slate-900 dark:border-l-slate-700"></span>
                 </div>
+            </div>
 
-                <!-- Language Dropdown Panel -->
-                <div id="lang-panel"
-                    class="hidden absolute right-[3.5rem] top-1/2 -translate-y-1/2 w-52
-                           bg-white/90 dark:bg-slate-800/90 backdrop-blur-2xl
-                           rounded-2xl border border-slate-200/80 dark:border-slate-700/70
-                           shadow-[0_16px_48px_rgba(0,0,0,0.15),0_2px_8px_rgba(0,0,0,0.08)]
-                           dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)]
-                           overflow-hidden">
-                    <div class="px-4 pt-3.5 pb-2.5 border-b border-slate-100 dark:border-slate-700/80 flex items-center gap-2">
-                        <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                        <p class="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 dark:text-slate-500">Language</p>
-                    </div>
-                    <div id="lang-list" class="max-h-[17rem] overflow-y-auto py-1">
-                        <button data-lang="en"    onclick="setLanguage('en')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇬🇧</span> English</button>
-                        <button data-lang="ar"    onclick="setLanguage('ar')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇸🇦</span> Arabic</button>
-                        <button data-lang="zh-CN" onclick="setLanguage('zh-CN')" class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇨🇳</span> Chinese</button>
-                        <button data-lang="fr"    onclick="setLanguage('fr')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇫🇷</span> French</button>
-                        <button data-lang="de"    onclick="setLanguage('de')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇩🇪</span> German</button>
-                        <button data-lang="hi"    onclick="setLanguage('hi')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇳</span> Hindi</button>
-                        <button data-lang="id"    onclick="setLanguage('id')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇩</span> Indonesian</button>
-                        <button data-lang="ja"    onclick="setLanguage('ja')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇯🇵</span> Japanese</button>
-                        <button data-lang="ko"    onclick="setLanguage('ko')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇰🇷</span> Korean</button>
-                        <button data-lang="ms"    onclick="setLanguage('ms')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇲🇾</span> Malay</button>
-                        <button data-lang="fa"    onclick="setLanguage('fa')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇮🇷</span> Persian</button>
-                        <button data-lang="pt"    onclick="setLanguage('pt')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇧🇷</span> Portuguese</button>
-                        <button data-lang="ru"    onclick="setLanguage('ru')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇷🇺</span> Russian</button>
-                        <button data-lang="es"    onclick="setLanguage('es')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇪🇸</span> Spanish</button>
-                        <button data-lang="tr"    onclick="setLanguage('tr')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇹🇷</span> Turkish</button>
-                        <button data-lang="ur"    onclick="setLanguage('ur')"    class="lang-opt w-full text-left px-3.5 py-2 text-[13px] font-semibold text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-2.5 rounded-lg mx-auto"><span class="text-[15px]">🇵🇰</span> Urdu</button>
-                    </div>
-                </div>
+        </div>
+
+        <!-- Language Panel -->
+        <div id="lang-panel" class="hidden absolute right-[calc(100%+12px)] top-1/2 -translate-y-1/2
+                    bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl
+                    border border-slate-200 dark:border-slate-700
+                    rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)]
+                    dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]
+                    overflow-hidden min-w-[180px]">
+            <div id="lang-list" class="py-2 max-h-[320px] overflow-y-auto custom-scrollbar">
+                <a href="{{ route('language.switch', 'en') }}" 
+                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold
+                          {{ app()->getLocale() === 'en' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700' }}
+                          transition-colors">
+                    <span class="text-lg">🇬🇧</span>
+                    <span>English (UK)</span>
+                </a>
+                <a href="{{ route('language.switch', 'ur') }}" 
+                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold
+                          {{ app()->getLocale() === 'ur' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700' }}
+                          transition-colors">
+                    <span class="text-lg">🇵🇰</span>
+                    <span>اردو</span>
+                </a>
+                <a href="{{ route('language.switch', 'ar') }}" 
+                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold
+                          {{ app()->getLocale() === 'ar' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700' }}
+                          transition-colors">
+                    <span class="text-lg">🇸🇦</span>
+                    <span>العربية</span>
+                </a>
+                <a href="{{ route('language.switch', 'fr') }}" 
+                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold
+                          {{ app()->getLocale() === 'fr' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700' }}
+                          transition-colors">
+                    <span class="text-lg">🇫🇷</span>
+                    <span>Français</span>
+                </a>
+                <a href="{{ route('language.switch', 'de') }}" 
+                   class="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold
+                          {{ app()->getLocale() === 'de' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700' }}
+                          transition-colors">
+                    <span class="text-lg">🇩🇪</span>
+                    <span>Deutsch</span>
+                </a>
             </div>
         </div>
     </div>
     <!-- END FLOATING SIDE WIDGET -->
-
-    <script>
-        /* Animated panel open/close */
-        function toggleLangPanel() {
-            const panel = document.getElementById('lang-panel');
-            if (panel.classList.contains('hidden')) {
-                panel.classList.remove('hidden');
-                panel.classList.add('panel-entering');
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => panel.classList.replace('panel-entering', 'panel-open'));
-                });
-            } else {
-                panel.classList.remove('panel-open');
-                panel.classList.add('panel-entering');
-                setTimeout(() => { panel.classList.add('hidden'); panel.classList.remove('panel-entering'); }, 180);
-            }
-        }
-        /* Update theme tooltip text */
-        function updateThemeTooltip(theme) {
-            const el = document.getElementById('theme-tooltip-text');
-            if (el) el.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            const stored = localStorage.getItem('ae-theme') || 'light';
-            updateThemeTooltip(stored);
-        });
-    </script>
 
     <!-- Main Content -->
     <main class="flex-grow">
@@ -368,7 +267,7 @@
                 <!-- Brand -->
                 <div class="space-y-6">
                     <div class="flex items-center gap-5">
-                        <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto brightness-0 invert opacity-90 object-contain" loading="lazy">
+                        <img src="{{ asset('images/logo.webp') }}" alt="Akhlaq Enterprises Logo" class="h-20 w-auto brightness-0 invert opacity-90 object-contain" width="80" height="80" loading="lazy">
                     </div>
                     <p class="text-base leading-relaxed text-slate-400 font-medium pt-2">
                         Redefining seafood exports with a legacy of trust, ethical standards, and premium quality from the heart of Pakistan.
@@ -381,19 +280,19 @@
 
                 <!-- Links -->
                 <div class="md:pl-10">
-                    <h3 class="text-white font-bold mb-6 text-xl tracking-tight">Quick Navigate</h3>
+                    <h3 class="text-white font-bold mb-6 text-xl tracking-tight">{{ __('common.quick_navigate') }}</h3>
                     <ul class="space-y-4 text-slate-400 font-semibold">
-                        <li><a href="{{ route('home') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>Home</a></li>
-                        <li><a href="{{ route('about') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>About Company</a></li>
-                        <li><a href="{{ route('gallery') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>Our Gallery</a></li>
-                        <li><a href="{{ route('products.index') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>Browse Products</a></li>
-                        <li><a href="{{ route('contact') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>Get in Touch</a></li>
+                        <li><a href="{{ route('home') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>{{ __('common.home') }}</a></li>
+                        <li><a href="{{ route('about') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>{{ __('common.about') }}</a></li>
+                        <li><a href="{{ route('gallery') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>{{ __('common.gallery') }}</a></li>
+                        <li><a href="{{ route('products.index') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>{{ __('common.products') }}</a></li>
+                        <li><a href="{{ route('contact') }}" class="hover:text-blue-500 transition-colors flex items-center gap-2 group"><span class="w-1.5 h-1.5 bg-blue-600 rounded-full scale-0 group-hover:scale-100 transition-transform"></span>{{ __('common.contact') }}</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact Info -->
                 <div class="md:col-span-2 bg-slate-900/50 p-8 rounded-[2rem] border border-slate-800 shadow-inner">
-                    <h3 class="text-white font-bold mb-6 text-xl tracking-tight">Contact Information</h3>
+                    <h3 class="text-white font-bold mb-6 text-xl tracking-tight">{{ __('common.contact_info') }}</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <div class="space-y-4 font-medium">
                             <div class="flex items-start gap-4">
@@ -422,7 +321,7 @@
             </div>
 
             <div class="border-t border-slate-900 mt-20 pt-10 flex flex-col md:flex-row justify-between items-center text-sm font-bold text-slate-600 tracking-wider">
-                <p>&copy; {{ date('Y') }} AKHLAQ ENTERPRISES. ALL RIGHTS RESERVED.</p>
+                <p>&copy; {{ date('Y') }} AKHLAQ ENTERPRISES. {{ strtoupper(__('common.all_rights_reserved')) }}</p>
             </div>
         </div>
     </footer>

@@ -50,3 +50,72 @@ function initTheme() {
 
 document.addEventListener('DOMContentLoaded', initTheme);
 window.toggleTheme = toggleTheme;
+
+/**
+ * Language panel toggle
+ */
+function toggleLangPanel() {
+    const panel = document.getElementById('lang-panel');
+    if (!panel) return;
+
+    if (panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        panel.classList.add('panel-entering');
+        requestAnimationFrame(() => {
+            panel.classList.remove('panel-entering');
+            panel.classList.add('panel-open');
+        });
+    } else {
+        panel.classList.remove('panel-open');
+        panel.classList.add('panel-entering');
+        setTimeout(() => {
+            panel.classList.add('hidden');
+            panel.classList.remove('panel-entering');
+        }, 180);
+    }
+}
+
+document.addEventListener('click', (e) => {
+    const panel = document.getElementById('lang-panel');
+    const langButton = e.target.closest('[onclick*="toggleLangPanel"]');
+    if (!langButton && panel && !panel.classList.contains('hidden')) {
+        if (!e.target.closest('#lang-panel')) {
+            toggleLangPanel();
+        }
+    }
+});
+
+// Language switch with forced reload
+document.addEventListener('DOMContentLoaded', () => {
+    const langLinks = document.querySelectorAll('#lang-list a');
+    langLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.href;
+            
+            // Show loading indicator
+            const panel = document.getElementById('lang-panel');
+            if (panel) {
+                panel.style.opacity = '0.5';
+                panel.style.pointerEvents = 'none';
+            }
+            
+            // Use fetch to change language, then force full page reload
+            fetch(url, {
+                method: 'GET',
+                cache: 'no-cache',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }).then(() => {
+                // Force a hard reload to clear all caches
+                window.location.reload(true);
+            }).catch(() => {
+                // Fallback: direct navigation with cache busting
+                window.location.href = url + (url.includes('?') ? '&' : '?') + '_t=' + Date.now();
+            });
+        });
+    });
+});
+
+window.toggleLangPanel = toggleLangPanel;

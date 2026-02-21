@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All Products - Akhlaq Enterprises')
+@section('title', __('products.page_title'))
 
 @section('content')
     <style>
@@ -45,13 +45,13 @@
         
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
             <div class="max-w-2xl space-y-6">
-                <span class="inline-block py-1 px-4 rounded-lg bg-blue-600/30 text-blue-400 text-xs font-black tracking-[0.3em] uppercase border border-blue-500/30 animate-fade-in">Global Export Catalog</span>
+                <span class="inline-block py-1 px-4 rounded-lg bg-blue-600/30 text-blue-400 text-xs font-black tracking-[0.3em] uppercase border border-blue-500/30 animate-fade-in">{{ __('products.catalog_badge') }}</span>
                 <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none animate-slide-up">
-                    Sea-To-Table <br> 
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Excellence.</span>
+                    {{ __('products.hero_title') }}<br> 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">{{ __('products.excellence') }}</span>
                 </h1>
                 <p class="text-slate-400 text-lg md:text-xl font-medium leading-relaxed animate-fade-in transition-all duration-700">
-                    Sourced directly from the Arabian Sea, processed with global hygiene standards, and shipped worldwide with total transparency.
+                    {{ __('products.hero_subtitle') }}
                 </p>
             </div>
         </div>
@@ -63,10 +63,10 @@
             <div class="flex flex-col lg:flex-row gap-8 items-center">
                 <!-- Search Section -->
                 <div class="w-full lg:w-1/3">
-                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">Find Seafood</label>
+                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">{{ __('products.find_seafood') }}</label>
                     <div class="relative group">
                         <input type="text" id="search-input" 
-                            placeholder="Search fresh catch..." 
+                            placeholder="{{ __('products.search_placeholder') }}" 
                             class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 border-2 border-slate-100 dark:border-slate-600 rounded-2xl focus:bg-white dark:focus:bg-slate-600 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 font-semibold shadow-inner">
                         <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -79,12 +79,12 @@
 
                 <!-- Categories Section -->
                 <div class="w-full lg:w-2/3 overflow-hidden">
-                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">Categories</label>
+                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">{{ __('products.categories_label') }}</label>
                     <div class="flex items-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x">
                         <label class="shrink-0 snap-start">
                             <input type="radio" name="category" value="all" checked class="hidden peer">
                             <div class="px-6 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
-                                All Products
+                                {{ __('products.all_products') }}
                             </div>
                         </label>
 
@@ -121,7 +121,7 @@
                 <div class="mt-20 text-center" id="load-more-container">
                     <button id="load-more-btn" data-next-url="{{ $products->nextPageUrl() }}" 
                         class="group relative inline-flex items-center gap-3 px-12 py-4 bg-slate-900 text-white font-bold rounded-2xl overflow-hidden transition-all hover:bg-blue-600 hover:shadow-2xl hover:shadow-blue-600/40">
-                        <span class="relative z-10">Load More Treasures</span>
+                        <span class="relative z-10">{{ __('products.load_more') }}</span>
                         <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </button>
                 </div>

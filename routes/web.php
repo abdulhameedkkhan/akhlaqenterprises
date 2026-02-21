@@ -1,8 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\PageController;
+
+// Language Switching Route
+Route::get('/language/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ur', 'ar', 'fr', 'de'])) {
+        Session::put('locale', $locale);
+        Session::save(); // Force save immediately
+    }
+    
+    // If AJAX request, return JSON
+    if (request()->ajax() || request()->wantsJson()) {
+        return response()->json(['success' => true, 'locale' => $locale]);
+    }
+    
+    // Otherwise redirect back with no-cache headers
+    return redirect()->back()->withHeaders([
+        'Cache-Control' => 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma' => 'no-cache',
+        'Expires' => 'Mon, 01 Jan 1990 00:00:00 GMT',
+    ]);
+})->name('language.switch');
 
 // Auth Routes
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');

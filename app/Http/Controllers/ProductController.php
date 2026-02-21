@@ -31,15 +31,18 @@ class ProductController extends Controller
             ]);
         }
 
-        $categories = \App\Models\Category::all();
+        $categories = \Cache::remember('all_categories', 3600, function() {
+            return \App\Models\Category::all();
+        });
 
         return view('products.index', compact('products', 'categories'));
     }
 
     public function show($slug)
     {
-        $product = \App\Models\Product::where('slug', $slug)->firstOrFail();
-        $relatedProducts = \App\Models\Product::where('category_id', $product->category_id)
+        $product = \App\Models\Product::with('category')->where('slug', $slug)->firstOrFail();
+        $relatedProducts = \App\Models\Product::with('category')
+            ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->limit(4)
             ->get();

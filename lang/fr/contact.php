@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'page_title' => 'Contactez-nous - Akhlaq Enterprises',
+    'connect_badge' => 'Connectez-vous à Nous',
+    'hero_title' => 'Contactez-nous',
+    'hero_subtitle' => 'Nous sommes disponibles 24h/24 et 7j/7 pour répondre à vos questions. Que vous recherchiez un produit spécifique ou souhaitiez discuter d\'un contrat à long terme, notre équipe est là pour vous aider.',
+    'name_label' => 'Votre Nom',
+    'first_name' => 'Prénom',
+    'last_name' => 'Nom de Famille',
+    'name_placeholder' => 'Entrez votre nom complet',
+    'email_label' => 'Email',
+    'email_placeholder' => 'you@company.com',
+    'phone_label' => 'Numéro de Téléphone',
+    'phone_placeholder' => '+33 1 23 45 67 89',
+    'message_label' => 'Message / Demande de Produit',
+    'message_placeholder' => 'Dites-nous ce que vous recherchez...',
+    'send_message' => 'Envoyer le Message',
+    'office_location' => 'Siège Social',
+    'call_us' => 'Numéros de Téléphone',
+    'email_us' => 'Email',
+    'whatsapp_title' => 'Support WhatsApp',
+    'whatsapp_desc' => 'Réponse instantanée pour les demandes de produits.',
+    'chat_now' => 'Cliquez pour discuter',
+];

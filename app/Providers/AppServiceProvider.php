@@ -24,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
         }
 
         \Illuminate\Support\Facades\View::composer(['layouts.admin', 'admin.*'], function ($view) {
-            $view->with('unreadSubmissionsCount', \App\Models\ContactSubmission::where('is_read', false)->count());
+            $unreadCount = \Cache::remember('unread_submissions_count', 300, function() {
+                return \App\Models\ContactSubmission::where('is_read', false)->count();
+            });
+            $view->with('unreadSubmissionsCount', $unreadCount);
         });
     }
 }

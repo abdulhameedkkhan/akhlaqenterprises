@@ -10,6 +10,16 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        minify: 'esbuild',
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['axios'],
+                },
+            },
+        },
+    },
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
