@@ -70,11 +70,9 @@
                     "{{ __('about.our_mission_text') }}"
                 </p>
 
-                <div class="flex flex-wrap justify-center items-center gap-16 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                    <!-- European Union Flag Logo -->
+                <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
                     <div class="flex flex-col items-center gap-4 group/logo">
-                        <div class="w-24 h-16 bg-[#003399] rounded-lg flex items-center justify-center relative shadow-2xl transition-transform group-hover/logo:scale-110">
-                            <!-- EU Flag Design -->
+                        <div class="w-24 h-16 bg-[#003399] rounded-lg flex items-center justify-center shadow-xl transition-transform group-hover/logo:scale-110">
                             <svg viewBox="0 0 120 80" class="w-full h-full p-2">
                                 <rect width="120" height="80" fill="#003399" rx="4"/>
                                 <g transform="translate(60,40)">
@@ -84,17 +82,11 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">European</span>
+                        <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">European</span>
                     </div>
-
-                    <!-- United Kingdom Flag Logo -->
                     <div class="flex flex-col items-center gap-4 group/logo">
-                        <div class="w-24 h-16 bg-[#012169] rounded-lg flex items-center justify-center relative shadow-2xl overflow-hidden transition-transform group-hover/logo:scale-110">
-                            <!-- UK Union Jack Design -->
+                        <div class="w-24 h-16 bg-[#012169] rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110">
                             <svg viewBox="0 0 60 30" class="w-full h-full">
-                                <clipPath id="s">
-                                    <path d="M0,0 v30 h60 v-30 z"/>
-                                </clipPath>
                                 <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
                                 <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
                                 <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
@@ -102,7 +94,13 @@
                                 <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
                             </svg>
                         </div>
-                        <span class="text-xs font-black tracking-[0.2em] text-slate-500 uppercase">United Kingdom</span>
+                        <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">United Kingdom</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-4 group/logo">
+                        <div class="w-24 h-16 rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110 bg-white dark:bg-slate-700 p-1">
+                            <img src="{{ asset('images/about-partner-logo.png') }}" alt="Certified" class="w-full h-full object-contain" width="96" height="64" loading="lazy">
+                        </div>
+                        <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">Certified</span>
                     </div>
                 </div>
             </div>

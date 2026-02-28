@@ -140,6 +140,45 @@
         </div>
     </section>
 
+    <!-- Partner / Certification Logos -->
+    <section class="py-16 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                <div class="flex flex-col items-center gap-4 group/logo">
+                    <div class="w-24 h-16 bg-[#003399] rounded-lg flex items-center justify-center shadow-xl transition-transform group-hover/logo:scale-110">
+                        <svg viewBox="0 0 120 80" class="w-full h-full p-2">
+                            <rect width="120" height="80" fill="#003399" rx="4"/>
+                            <g transform="translate(60,40)">
+                                @for($i = 0; $i < 12; $i++)
+                                    <path d="M0,-24 L1.5,-19 L6.5,-19 L2.5,-16 L4,-11 L0,-14 L-4,-11 L-2.5,-16 L-6.5,-19 L-1.5,-19 Z" fill="#FFCC00" transform="rotate({{ $i * 30 }})" />
+                                @endfor
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">EU</span>
+                </div>
+                <div class="flex flex-col items-center gap-4 group/logo">
+                    <div class="w-24 h-16 bg-[#012169] rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110">
+                        <svg viewBox="0 0 60 30" class="w-full h-full">
+                            <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                            <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+                            <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                            <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                        </svg>
+                    </div>
+                    <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">UK</span>
+                </div>
+                <div class="flex flex-col items-center gap-4 group/logo">
+                    <div class="w-24 h-16 rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110 bg-white dark:bg-slate-700 p-1">
+                        <img src="{{ asset('images/about-partner-logo.png') }}" alt="SFDA" class="w-full h-full object-contain" width="96" height="64" loading="lazy">
+                    </div>
+                    <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">SFDA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Lazy load slider images
