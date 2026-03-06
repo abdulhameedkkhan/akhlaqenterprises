@@ -25,6 +25,7 @@ return [
     
     // Featured Products
     'featured_products' => 'Nos Produits Vedettes',
+    'featured_categories' => 'Nos Catégories Vedettes',
     'featured_subtitle' => 'Produits de la mer de qualité exceptionnelle sélectionnés selon les normes d\'exportation mondiales.',
     'explore_catalog' => 'Explorer le Catalogue Complet',
     'view_details' => 'Détails',

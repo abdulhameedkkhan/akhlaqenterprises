@@ -33,9 +33,16 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     
-    // Restricted to admin only
+    // Products: index + data + toggle-active for admin and contact_viewer
+    Route::middleware(['role:admin,contact_viewer'])->group(function () {
+        Route::get('/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
+        Route::get('/products-data', [App\Http\Controllers\Admin\ProductController::class, 'data'])->name('products.data');
+        Route::post('/products/{product}/toggle-active', [App\Http\Controllers\Admin\ProductController::class, 'toggleActive'])->name('products.toggle_active');
+    });
+
+    // Restricted to admin only (products create/edit/delete, categories, gallery)
     Route::middleware(['role:admin'])->group(function () {
-        Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
+        Route::resource('products', App\Http\Controllers\Admin\ProductController::class)->except(['index']);
         Route::delete('products/{product}/gallery/{index}', [App\Http\Controllers\Admin\ProductController::class, 'deleteGalleryImage'])->name('products.gallery.destroy');
         Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
         Route::resource('gallery', App\Http\Controllers\Admin\GalleryController::class);
@@ -47,6 +54,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/contact-submissions-data', [App\Http\Controllers\Admin\ContactSubmissionController::class, 'data'])->name('contact_submissions.data');
         Route::get('/contact-submissions/{submission}', [App\Http\Controllers\Admin\ContactSubmissionController::class, 'show'])->name('contact_submissions.show');
         Route::post('/contact-submissions/{submission}/toggle-read', [App\Http\Controllers\Admin\ContactSubmissionController::class, 'toggleRead'])->name('contact_submissions.toggle_read');
+        Route::get('/visitors', [App\Http\Controllers\Admin\VisitorController::class, 'index'])->name('visitors.index');
     });
 });
 

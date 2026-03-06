@@ -25,6 +25,7 @@ return [
     
     // Featured Products
     'featured_products' => 'ہماری نمایاں مصنوعات',
+    'featured_categories' => 'ہماری نمایاں زمرے',
     'featured_subtitle' => 'عالمی برآمدی معیارات کے لیے منتخب کردہ غیر معمولی معیار کی سمندری خوراک۔',
     'explore_catalog' => 'مکمل کیٹلاگ دیکھیں',
     'view_details' => 'تفصیلات',

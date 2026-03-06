@@ -27,7 +27,8 @@ class GalleryController extends Controller
         $item = new Gallery($request->all());
         
         if ($request->hasFile('image')) {
-            $name = time() . '_' . Str::slug($request->title) . '.' . $request->image->extension();
+            $prefix = config('media.upload_prefix', 'akhlaq-enterprise');
+            $name = $prefix . '-' . time() . '_' . Str::slug($request->title) . '.' . $request->image->extension();
             $request->image->move(public_path('images/gallery'), $name);
             $item->image = 'images/gallery/' . $name;
         }

@@ -291,14 +291,13 @@
         });
     </script>
 
-    <!-- Featured Products Preview with Video Background -->
+    <!-- Featured Categories with Video Background -->
     <section class="relative py-32 overflow-hidden">
         <!-- Background Video (loaded after page interactive via JS) -->
         <div class="absolute inset-0 z-0">
             <video id="featured-video" muted loop playsinline class="w-full h-full object-cover" style="background:#0f172a" preload="none">
                 <source data-src="{{ asset('videos/featured-bg.mp4') }}" type="video/mp4">
             </video>
-            <!-- Lighter Overlay for better visibility -->
             <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/40 to-slate-900/60"></div>
         </div>
         <script>
@@ -318,8 +317,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6">
                 <div class="text-center md:text-left">
-                    <span class="inline-block py-1 px-3 rounded-lg bg-blue-500/20 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 border border-blue-500/30">Harvest of the Day</span>
-                    <h2 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">{{ __('common.featured_products') }}</h2>
+                    <span class="inline-block py-1 px-3 rounded-lg bg-blue-500/20 text-blue-400 text-xs font-black tracking-widest uppercase mb-4 border border-blue-500/30">Browse by Category</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">{{ __('common.featured_categories') }}</h2>
                     <p class="text-slate-400 text-lg max-w-xl font-medium">{{ __('common.featured_subtitle') }}</p>
                 </div>
                 <a href="{{ route('products.index') }}" class="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-2xl font-bold border border-white/20 transition-all duration-300 backdrop-blur-md">
@@ -328,33 +327,24 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($featuredProducts as $item)
-                <!-- Product Card -->
-                <div class="group bg-white/5 backdrop-blur-xl rounded-[2.5rem] border border-white/10 overflow-hidden hover:bg-white transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-3">
-                    <div class="h-64 relative overflow-hidden m-4 rounded-[2rem] bg-white flex items-center justify-center p-6">
-                        <img src="{{ asset($item->image) }}" class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-700" alt="{{ $item->name }}" width="256" height="256" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                @foreach($categories as $category)
+                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="group block">
+                    <div class="relative aspect-square rounded-2xl border-2 border-white/20 overflow-hidden transition-all duration-300 hover:border-white/50 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 {{ $category->image ? '' : 'bg-slate-700' }}">
+                        @if($category->image)
+                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110">
+                        @else
+                        <span class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-14 h-14 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/></svg>
+                        </span>
+                        @endif
+                        <span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/30 rounded-2xl"></span>
+                        <span class="absolute inset-0 flex items-center justify-center p-4">
+                            <span class="rounded-2xl border border-white/25 bg-black/65 px-5 py-2.5 text-center font-sans text-lg sm:text-xl font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_4px_24px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 group-hover:border-white/40 group-hover:bg-black/75 group-hover:text-blue-50 group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)]" style="text-shadow: 0 0 1px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.95); -webkit-font-smoothing: antialiased;">{{ $category->name }}</span>
+                        </span>
                     </div>
-                    <div class="p-8 pt-2">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-black text-2xl text-white group-hover:text-slate-900 transition-colors tracking-tight">{{ $item->name }}</h3>
-                        </div>
-                        <p class="text-slate-400 group-hover:text-slate-600 text-base mb-6 font-medium leading-relaxed line-clamp-2">
-                             {{ $item->description }}
-                        </p>
-                        <a href="{{ route('products.show', $item->slug) }}" class="inline-flex items-center text-blue-400 group-hover:text-blue-600 font-black text-sm uppercase tracking-widest">
-                            {{ __('common.view_details') }} <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        </a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            
-            <div class="mt-20 text-center md:hidden">
-                <a href="{{ route('products.index') }}" class="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/30">
-                    See More Selections <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
+                @endforeach
             </div>
         </div>
     </section>

@@ -25,6 +25,7 @@ return [
     
     // Featured Products
     'featured_products' => 'منتجاتنا المميزة',
+    'featured_categories' => 'فئاتنا المميزة',
     'featured_subtitle' => 'مأكولات بحرية عالية الجودة مختارة لمعايير التصدير العالمية.',
     'explore_catalog' => 'استكشف الكتالوج الكامل',
     'view_details' => 'التفاصيل',

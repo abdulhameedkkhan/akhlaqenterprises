@@ -21,7 +21,7 @@
                     <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
                     <input id="email" name="email" type="email" autocomplete="email" required 
                            class="appearance-none relative block w-full px-5 py-4 border-2 border-slate-100 bg-slate-50 placeholder-slate-400 text-slate-900 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 focus:z-10 sm:text-sm transition-all font-semibold" 
-                           placeholder="admin@akhlaq.com">
+                           placeholder="administrator@hameed.com">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-bold text-slate-700 mb-2">Password</label>

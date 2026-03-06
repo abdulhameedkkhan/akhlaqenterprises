@@ -25,6 +25,7 @@ return [
     
     // Featured Products
     'featured_products' => 'Unsere Empfohlenen Produkte',
+    'featured_categories' => 'Unsere Empfohlenen Kategorien',
     'featured_subtitle' => 'Außergewöhnliche Qualität von Meeresfrüchten, ausgewählt für globale Exportstandards.',
     'explore_catalog' => 'Vollständigen Katalog Erkunden',
     'view_details' => 'Details',

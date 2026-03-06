@@ -8,7 +8,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = \App\Models\Product::with('category');
+        $query = \App\Models\Product::with('category')->active();
 
         // Search
         if ($request->filled('search')) {
@@ -40,8 +40,9 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        $product = \App\Models\Product::with('category')->where('slug', $slug)->firstOrFail();
+        $product = \App\Models\Product::with('category')->active()->where('slug', $slug)->firstOrFail();
         $relatedProducts = \App\Models\Product::with('category')
+            ->active()
             ->where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->limit(4)

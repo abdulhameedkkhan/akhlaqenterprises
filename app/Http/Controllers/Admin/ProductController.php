@@ -13,8 +13,67 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->latest()->paginate(10);
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index');
+    }
+
+    public function data(Request $request)
+    {
+        $query = Product::with('category');
+
+        if ($request->filled('search.value')) {
+            $search = $request->input('search.value');
+            $query->where(function ($q) use ($search) {
+                $q->where('products.name', 'like', '%' . $search . '%')
+                    ->orWhereHas('category', fn ($c) => $c->where('name', 'like', '%' . $search . '%'));
+            });
+        }
+
+        $totalRecords = Product::count();
+        $filteredRecords = (clone $query)->count();
+
+        $orderCol = (int) $request->input('order.0.column', 3);
+        $orderDir = $request->input('order.0.dir', 'desc') === 'asc' ? 'asc' : 'desc';
+        if ($orderCol === 1) {
+            $query->orderBy('products.name', $orderDir);
+        } elseif ($orderCol === 3) {
+            $query->orderBy('products.created_at', $orderDir);
+        } elseif ($orderCol === 4) {
+            $query->orderBy('products.is_active', $orderDir);
+        } else {
+            $query->orderBy('products.created_at', 'desc');
+        }
+
+        $products = $query->skip($request->input('start', 0))
+            ->take($request->input('length', 10))
+            ->get();
+
+        $data = $products->map(function ($p) {
+            $imgUrl = $p->image && !Str::startsWith($p->image, 'http') ? asset($p->image) : ($p->image ?: '');
+            return [
+                'id' => $p->id,
+                'image' => $imgUrl,
+                'name' => $p->name,
+                'category' => $p->category->name ?? '—',
+                'created_at' => $p->created_at->format('M d, Y'),
+                'is_active' => (bool) $p->is_active,
+                'actions' => view('admin.products.partials.actions', ['p' => $p])->render(),
+            ];
+        });
+
+        return response()->json([
+            'draw' => (int) $request->input('draw'),
+            'recordsTotal' => $totalRecords,
+            'recordsFiltered' => $filteredRecords,
+            'data' => $data,
+        ]);
+    }
+
+    public function toggleActive(Product $product)
+    {
+        $product->is_active = !$product->is_active;
+        $product->save();
+        \Illuminate\Support\Facades\Cache::forget('all_categories');
+        return back()->with('success', 'Product ' . ($product->is_active ? 'activated' : 'deactivated') . '.');
     }
 
     public function create()
@@ -35,9 +94,12 @@ class ProductController extends Controller
         $product = new Product($data);
         $product->slug = Str::slug($request->name);
         
-        // Handle Main Image
+        $prefix = config('media.upload_prefix', 'akhlaq-enterprise');
+
+        // Handle Main Image (filename: akhlaq-enterprise-{Product Name}.ext)
         if ($request->hasFile('image')) {
-            $imageName = 'main_' . time() . '.' . $request->image->extension();
+            $safeName = $this->sanitizeProductNameForFilename($request->name);
+            $imageName = $prefix . '-' . $safeName . '.' . $request->image->extension();
             $directory = public_path('images/products/' . $product->slug);
             
             if (!File::isDirectory($directory)) {
@@ -60,7 +122,7 @@ class ProductController extends Controller
             }
 
             foreach ($request->file('gallery') as $index => $file) {
-                $fileName = 'gallery_' . time() . '_' . $index . '.' . $file->extension();
+                $fileName = $prefix . '-gallery_' . time() . '_' . $index . '.' . $file->extension();
                 $file->move($galleryDir, $fileName);
                 $galleryPaths[] = 'images/products/' . $product->slug . '/gallery/' . $fileName;
             }
@@ -89,6 +151,8 @@ class ProductController extends Controller
 
         $product->fill($data);
         
+        $prefix = config('media.upload_prefix', 'akhlaq-enterprise');
+
         // Handle Main Image Update
         if ($request->hasFile('image')) {
             // Delete old image if exists
@@ -97,7 +161,8 @@ class ProductController extends Controller
             }
             
             $slug = $product->slug ?: Str::slug($product->name);
-            $imageName = 'main_' . time() . '.' . $request->image->extension();
+            $safeName = $this->sanitizeProductNameForFilename($product->name);
+            $imageName = $prefix . '-' . $safeName . '.' . $request->image->extension();
             $directory = public_path('images/products/' . $slug);
             
             if (!File::isDirectory($directory)) {
@@ -125,7 +190,7 @@ class ProductController extends Controller
             }
 
             foreach ($request->file('gallery') as $index => $file) {
-                $fileName = 'gallery_' . time() . '_' . $index . '.' . $file->extension();
+                $fileName = $prefix . '-gallery_' . time() . '_' . $index . '.' . $file->extension();
                 $file->move(public_path('images/products/' . $product->slug . '/gallery'), $fileName);
                 $galleryPaths[] = 'images/products/' . $product->slug . '/gallery/' . $fileName;
             }
@@ -157,5 +222,12 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+    }
+
+    private function sanitizeProductNameForFilename(string $name): string
+    {
+        $name = str_replace(['\\', '/', ':', '*', '?', '"', '<', '>', '|'], '-', $name);
+        $name = preg_replace('/-+/', '-', $name);
+        return trim($name, " \t\n\r\0\x0B-");
     }
 }

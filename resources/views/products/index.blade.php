@@ -60,44 +60,53 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Unified Premium Filter Bar -->
         <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200 dark:border-slate-700 shadow-2xl rounded-[2rem] p-8 mb-12 transition-all hover:shadow-blue-500/10">
-            <div class="flex flex-col lg:flex-row gap-8 items-center">
-                <!-- Search Section -->
-                <div class="w-full lg:w-1/3">
-                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">{{ __('products.find_seafood') }}</label>
-                    <div class="relative group">
-                        <input type="text" id="search-input" 
-                            placeholder="{{ __('products.search_placeholder') }}" 
-                            class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 border-2 border-slate-100 dark:border-slate-600 rounded-2xl focus:bg-white dark:focus:bg-slate-600 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 font-semibold shadow-inner">
-                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        </div>
+            <!-- Search Section -->
+            <div class="mb-10">
+                <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">{{ __('products.find_seafood') }}</label>
+                <div class="relative group max-w-xl">
+                    <input type="text" id="search-input" 
+                        placeholder="{{ __('products.search_placeholder') }}" 
+                        class="w-full pl-12 pr-4 py-4 bg-slate-50 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 border-2 border-slate-100 dark:border-slate-600 rounded-2xl focus:bg-white dark:focus:bg-slate-600 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all outline-none text-slate-700 placeholder:text-slate-400 font-semibold shadow-inner">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </div>
                 </div>
+            </div>
 
-                <!-- Divider (Desktop Only) -->
-                <div class="hidden lg:block w-px h-16 bg-slate-200 dark:bg-slate-600 mx-2"></div>
-
-                <!-- Categories Section -->
-                <div class="w-full lg:w-2/3 overflow-hidden">
-                    <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 ml-1">{{ __('products.categories_label') }}</label>
-                    <div class="flex items-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x">
-                        <label class="shrink-0 snap-start">
-                            <input type="radio" name="category" value="all" checked class="hidden peer">
-                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
-                                {{ __('products.all_products') }}
-                            </div>
-                        </label>
-
-                        @foreach($categories as $category)
-                        <label class="shrink-0 snap-start">
-                            <input type="radio" name="category" value="{{ $category->id }}" class="hidden peer">
-                            <div class="px-6 py-3 rounded-xl border-2 border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold cursor-pointer transition-all hover:border-blue-200 peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white peer-checked:shadow-lg peer-checked:shadow-blue-600/30">
-                                {{ $category->name }}
-                            </div>
-                        </label>
-                        @endforeach
+            <!-- Categories (horizontal scroll, image as background, text on top) -->
+            <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 ml-1">{{ __('products.categories_label') }}</label>
+            <div class="flex items-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x snap-mandatory">
+                <label class="shrink-0 snap-start cursor-pointer block">
+                    <input type="radio" name="category" value="all" checked class="hidden peer">
+                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 bg-slate-200 dark:bg-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] peer-checked:border-blue-600 peer-checked:shadow-xl peer-checked:shadow-blue-600/30 peer-checked:ring-4 peer-checked:ring-blue-400/30">
+                        <span class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                        </span>
+                        <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-xl"></span>
+                        <span class="absolute inset-0 flex items-center justify-center p-1.5">
+                            <span class="rounded-xl border border-white/20 bg-black/65 px-2.5 py-1 text-center font-sans text-xs sm:text-sm font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_2px_12px_rgba(0,0,0,0.45)] backdrop-blur-md" style="text-shadow: 0 0 1px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.9); -webkit-font-smoothing: antialiased;">{{ __('products.all_products') }}</span>
+                        </span>
                     </div>
-                </div>
+                </label>
+
+                @foreach($categories as $category)
+                <label class="shrink-0 snap-start cursor-pointer block">
+                    <input type="radio" name="category" value="{{ $category->id }}" class="hidden peer">
+                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] peer-checked:border-blue-600 peer-checked:shadow-xl peer-checked:shadow-blue-600/30 peer-checked:ring-4 peer-checked:ring-blue-400/30 {{ $category->image ? '' : 'bg-slate-200 dark:bg-slate-600' }}">
+                        @if($category->image)
+                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover object-center">
+                        @else
+                        <span class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/></svg>
+                        </span>
+                        @endif
+                        <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent rounded-xl"></span>
+                        <span class="absolute inset-0 flex items-center justify-center p-1.5">
+                            <span class="rounded-xl border border-white/20 bg-black/65 px-2.5 py-1 text-center font-sans text-xs sm:text-sm font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_2px_12px_rgba(0,0,0,0.45)] backdrop-blur-md peer-checked:border-blue-400/40 peer-checked:bg-black/75" style="text-shadow: 0 0 1px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.9); -webkit-font-smoothing: antialiased;">{{ $category->name }}</span>
+                        </span>
+                    </div>
+                </label>
+                @endforeach
             </div>
         </div>
 

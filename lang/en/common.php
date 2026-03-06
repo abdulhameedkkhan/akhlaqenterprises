@@ -23,8 +23,9 @@ return [
     'premium_quality' => 'Premium Quality',
     'premium_quality_desc' => 'We don\'t just sell seafood; we sell an experience. Strict quality control means you only get the best, every single time.',
     
-    // Featured Products
+    // Featured Categories
     'featured_products' => 'Our Featured Products',
+    'featured_categories' => 'Explore Our Categories',
     'featured_subtitle' => 'Exceptional quality seafood selected for global export standards.',
     'explore_catalog' => 'Explore Full Catalog',
     'view_details' => 'Details',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -23,6 +24,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name),
             'image' => 'images/categories/placeholder.jpg'
         ]);
+        Cache::forget('all_categories');
         return back()->with('success', 'Category created successfully.');
     }
 
@@ -33,12 +35,14 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ]);
+        Cache::forget('all_categories');
         return back()->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
+        Cache::forget('all_categories');
         return back()->with('success', 'Category deleted successfully.');
     }
 }

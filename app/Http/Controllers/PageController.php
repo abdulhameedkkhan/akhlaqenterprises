@@ -8,10 +8,10 @@ class PageController extends Controller
 {
     public function index()
     {
-        $featuredProducts = \Cache::remember('featured_products', 3600, function() {
-            return \App\Models\Product::with('category')->limit(4)->get();
+        $categories = \Cache::remember('all_categories', 3600, function() {
+            return \App\Models\Category::orderBy('name')->get();
         });
-        return view('home', compact('featuredProducts'));
+        return view('home', compact('categories'));
     }
 
     public function about()
