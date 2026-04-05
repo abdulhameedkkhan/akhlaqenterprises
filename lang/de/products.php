@@ -12,6 +12,7 @@ return [
     'find_seafood' => 'Meeresfrüchte Finden',
     'search_placeholder' => 'Frischen Fang suchen...',
     'load_more' => 'Mehr Produkte Laden',
+    'all_shown_hint' => 'Alle :count Produkte für diesen Filter (eine Seite).',
     'specifications' => 'Spezifikationen',
     'related_products' => 'Verwandte Produkte',
     'back_to_products' => 'Zurück zu Produkten',

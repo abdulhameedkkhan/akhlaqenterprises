@@ -12,7 +12,7 @@ class CategoriesProductsSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            'Fresh Water' => [
+            'Fresh Water Fish' => [
                 'Helicopter Catfish / Boal',
                 'Long Whiskered Catfish',
                 'Oreochromis / Tilapia',
@@ -43,7 +43,7 @@ class CategoriesProductsSeeder extends Seeder
                 'Chapila',
                 'Walking Catfish / Magur',
             ],
-            'Sea Water' => [
+            'Sea Water Fish' => [
                 'Silver / White Pomfret',
                 'Chinese Pomfret',
                 'Black Pomfret',
@@ -77,7 +77,7 @@ class CategoriesProductsSeeder extends Seeder
                 'Tongue Sole',
                 'Stingray Fish',
             ],
-            'Shrimps / Prawns' => [
+            'Shrimps' => [
                 'Kiddi Shrimp',
                 'Indian White Prawn',
                 'Giant Tiger Prawn',

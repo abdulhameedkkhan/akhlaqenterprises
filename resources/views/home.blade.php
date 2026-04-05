@@ -175,6 +175,13 @@
                     </div>
                     <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">SFDA</span>
                 </div>
+                
+                <div class="flex flex-col items-center gap-4 group/logo">
+                        <div class="w-24 h-16 rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110 bg-white dark:bg-slate-700 p-1">
+                            <img src="{{ asset('images/fda-logo.png') }}" alt="US FDA" class="w-full h-full object-contain" width="96" height="64" loading="lazy">
+                        </div>
+                        <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">US FDA</span>
+                    </div>
             </div>
         </div>
     </section>
@@ -295,7 +302,7 @@
     <section class="relative py-32 overflow-hidden">
         <!-- Background Video (loaded after page interactive via JS) -->
         <div class="absolute inset-0 z-0">
-            <video id="featured-video" muted loop playsinline class="w-full h-full object-cover" style="background:#0f172a" preload="none">
+            <video id="featured-video" muted loop playsinline class="pointer-events-none w-full h-full object-cover" style="background:#0f172a" preload="none">
                 <source data-src="{{ asset('videos/featured-bg.mp4') }}" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/40 to-slate-900/60"></div>
@@ -329,7 +336,7 @@
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                 @foreach($categories as $category)
-                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="group block">
+                <a href="{{ route('products.index', ['category' => $category->slug]) }}" class="group block touch-manipulation relative z-10">
                     <div class="relative aspect-square rounded-2xl border-2 border-white/20 overflow-hidden transition-all duration-300 hover:border-white/50 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 {{ $category->image ? '' : 'bg-slate-700' }}">
                         @if($category->image)
                         <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-110">

@@ -12,6 +12,7 @@ return [
     'find_seafood' => 'Find Seafood',
     'search_placeholder' => 'Search fresh catch...',
     'load_more' => 'Load More Products',
+    'all_shown_hint' => 'Showing all :count products for this filter (one page).',
     'specifications' => 'Specifications',
     'related_products' => 'Related Products',
     'back_to_products' => 'Back to Products',

@@ -15,19 +15,36 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Filter by Category
+        // Filter by Category (slug-friendly URL for SEO; numeric IDs still supported)
         if ($request->filled('category') && $request->category !== 'all') {
-            $query->where('category_id', $request->category);
+            $categoryFilter = $request->category;
+
+            if (is_numeric($categoryFilter)) {
+                $categoryId = (int) $categoryFilter;
+            } else {
+                $slug = \Illuminate\Support\Str::slug($categoryFilter);
+                $category = \App\Models\Category::where('slug', $slug)
+                    ->orWhereRaw('LOWER(name) = ?', [strtolower($categoryFilter)])
+                    ->first();
+                $categoryId = $category ? $category->id : null;
+            }
+
+            if ($categoryId) {
+                $query->where('category_id', $categoryId);
+            } else {
+                $query->whereRaw('0 = 1');
+            }
         }
 
-        // Pagination
-        $products = $query->paginate(12);
+        // Pagination (preserve ?category= & ?search= on page links and AJAX next_page_url)
+        $products = $query->paginate(12)->withQueryString();
 
         // AJAX response for "Load More" or Search
-        if ($request->ajax()) {
+        if ($request->ajax() || $request->query('ajax')) {
             return response()->json([
                 'html' => view('products.partials.list', compact('products'))->render(),
-                'next_page_url' => $products->nextPageUrl()
+                'next_page_url' => $products->nextPageUrl(),
+                'total' => $products->total(),
             ]);
         }
 

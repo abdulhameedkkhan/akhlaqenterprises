@@ -12,6 +12,7 @@ return [
     'find_seafood' => 'سمندری خوراک تلاش کریں',
     'search_placeholder' => 'تازہ پکڑ تلاش کریں...',
     'load_more' => 'مزید مصنوعات لوڈ کریں',
+    'all_shown_hint' => 'اس فلٹر کی تمام :count مصنوعات ایک صفحہ پر دکھائی گئیں۔',
     'specifications' => 'تفصیلات',
     'related_products' => 'متعلقہ مصنوعات',
     'back_to_products' => 'مصنوعات پر واپس',

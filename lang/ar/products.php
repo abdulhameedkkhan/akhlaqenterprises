@@ -12,6 +12,7 @@ return [
     'find_seafood' => 'البحث عن المأكولات البحرية',
     'search_placeholder' => 'البحث عن الصيد الطازج...',
     'load_more' => 'تحميل المزيد من المنتجات',
+    'all_shown_hint' => 'عرض جميع :count منتجات هذا التصفية في صفحة واحدة.',
     'specifications' => 'المواصفات',
     'related_products' => 'المنتجات ذات الصلة',
     'back_to_products' => 'العودة إلى المنتجات',

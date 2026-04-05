@@ -102,6 +102,12 @@
                         </div>
                         <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">SFDA</span>
                     </div>
+                    <div class="flex flex-col items-center gap-4 group/logo">
+                        <div class="w-24 h-16 rounded-lg flex items-center justify-center shadow-xl overflow-hidden transition-transform group-hover/logo:scale-110 bg-white dark:bg-slate-700 p-1">
+                            <img src="{{ asset('images/fda-logo.png') }}" alt="US FDA" class="w-full h-full object-contain" width="96" height="64" loading="lazy">
+                        </div>
+                        <span class="text-xs font-bold tracking-[0.2em] text-slate-500 uppercase">US FDA</span>
+                    </div>
                 </div>
             </div>
         </div>

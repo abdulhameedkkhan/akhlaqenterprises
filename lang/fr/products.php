@@ -12,6 +12,7 @@ return [
     'find_seafood' => 'Trouver des Produits de la Mer',
     'search_placeholder' => 'Rechercher une prise fraîche...',
     'load_more' => 'Charger Plus de Produits',
+    'all_shown_hint' => 'Affichage des :count produits pour ce filtre (une seule page).',
     'specifications' => 'Spécifications',
     'related_products' => 'Produits Connexes',
     'back_to_products' => 'Retour aux Produits',

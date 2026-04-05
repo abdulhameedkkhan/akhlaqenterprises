@@ -76,9 +76,8 @@
             <!-- Categories (horizontal scroll, image as background, text on top) -->
             <label class="block text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 ml-1">{{ __('products.categories_label') }}</label>
             <div class="flex items-center gap-3 overflow-x-auto pb-4 custom-scrollbar snap-x snap-mandatory">
-                <label class="shrink-0 snap-start cursor-pointer block">
-                    <input type="radio" name="category" value="all" checked class="hidden peer">
-                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 bg-slate-200 dark:bg-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] peer-checked:border-blue-600 peer-checked:shadow-xl peer-checked:shadow-blue-600/30 peer-checked:ring-4 peer-checked:ring-blue-400/30">
+                <a href="{{ route('products.index') }}" data-category="all" class="category-filter-link shrink-0 snap-start cursor-pointer block touch-manipulation select-none">
+                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 bg-slate-200 dark:bg-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] {{ request('category') === null || request('category') === 'all' ? 'border-blue-600 shadow-xl shadow-blue-600/30 ring-4 ring-blue-400/30' : '' }}">
                         <span class="absolute inset-0 flex items-center justify-center">
                             <svg class="w-8 h-8 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
                         </span>
@@ -87,14 +86,13 @@
                             <span class="rounded-xl border border-white/20 bg-black/65 px-2.5 py-1 text-center font-sans text-xs sm:text-sm font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_2px_12px_rgba(0,0,0,0.45)] backdrop-blur-md" style="text-shadow: 0 0 1px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.9); -webkit-font-smoothing: antialiased;">{{ __('products.all_products') }}</span>
                         </span>
                     </div>
-                </label>
+                </a>
 
                 @foreach($categories as $category)
-                <label class="shrink-0 snap-start cursor-pointer block">
-                    <input type="radio" name="category" value="{{ $category->id }}" class="hidden peer">
-                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] peer-checked:border-blue-600 peer-checked:shadow-xl peer-checked:shadow-blue-600/30 peer-checked:ring-4 peer-checked:ring-blue-400/30 {{ $category->image ? '' : 'bg-slate-200 dark:bg-slate-600' }}">
+                <a href="{{ route('products.index', ['category' => $category->slug]) }}" data-category="{{ $category->slug }}" class="category-filter-link shrink-0 snap-start cursor-pointer block touch-manipulation select-none">
+                    <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl border-2 border-slate-200 dark:border-slate-600 overflow-hidden transition-all hover:border-blue-200 hover:shadow-lg hover:scale-[1.02] {{ request('category') === $category->slug ? 'border-blue-600 shadow-xl shadow-blue-600/30 ring-4 ring-blue-400/30' : '' }} {{ $category->image ? '' : 'bg-slate-200 dark:bg-slate-600' }}">
                         @if($category->image)
-                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover object-center">
+                        <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" draggable="false" class="pointer-events-none absolute inset-0 w-full h-full object-cover object-center">
                         @else
                         <span class="absolute inset-0 flex items-center justify-center">
                             <svg class="w-8 h-8 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14"/></svg>
@@ -102,10 +100,10 @@
                         @endif
                         <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent rounded-xl"></span>
                         <span class="absolute inset-0 flex items-center justify-center p-1.5">
-                            <span class="rounded-xl border border-white/20 bg-black/65 px-2.5 py-1 text-center font-sans text-xs sm:text-sm font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_2px_12px_rgba(0,0,0,0.45)] backdrop-blur-md peer-checked:border-blue-400/40 peer-checked:bg-black/75" style="text-shadow: 0 0 1px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.9); -webkit-font-smoothing: antialiased;">{{ $category->name }}</span>
+                            <span class="rounded-xl border border-white/20 bg-black/65 px-2.5 py-1 text-center font-sans text-xs sm:text-sm font-semibold leading-snug tracking-wide text-white antialiased shadow-[0_2px_12px_rgba(0,0,0,0.45)] backdrop-blur-md {{ request('category') === $category->slug ? 'border-blue-400/40 bg-black/75' : '' }}" style="text-shadow: 0 0 1px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.9); -webkit-font-smoothing: antialiased;">{{ $category->name }}</span>
                         </span>
                     </div>
-                </label>
+                </a>
                 @endforeach
             </div>
         </div>
@@ -125,16 +123,15 @@
                 @include('products.partials.list')
             </div>
 
-            <!-- Load More -->
-            @if($products->hasMorePages())
-                <div class="mt-20 text-center" id="load-more-container">
-                    <button id="load-more-btn" data-next-url="{{ $products->nextPageUrl() }}" 
-                        class="group relative inline-flex items-center gap-3 px-12 py-4 bg-slate-900 text-white font-bold rounded-2xl overflow-hidden transition-all hover:bg-blue-600 hover:shadow-2xl hover:shadow-blue-600/40">
-                        <span class="relative z-10">{{ __('products.load_more') }}</span>
-                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </button>
-                </div>
-            @endif
+            <!-- Load More (container always present so AJAX can show/hide without errors) -->
+            <div class="mt-20 text-center {{ $products->hasMorePages() ? '' : 'hidden' }}" id="load-more-container">
+                <button type="button" id="load-more-btn" data-next-url="{{ $products->hasMorePages() ? $products->nextPageUrl() : '' }}"
+                    class="group relative inline-flex items-center gap-3 px-12 py-4 bg-slate-900 text-white font-bold rounded-2xl overflow-hidden transition-all hover:bg-blue-600 hover:shadow-2xl hover:shadow-blue-600/40">
+                    <span class="relative z-10">{{ __('products.load_more') }}</span>
+                    <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </button>
+            </div>
+            <p id="products-end-hint" class="text-center text-sm text-slate-500 dark:text-slate-400 mt-6 {{ ($products->hasMorePages() || $products->total() === 0) ? 'hidden' : '' }}">{{ $products->total() > 0 ? __('products.all_shown_hint', ['count' => $products->total()]) : '' }}</p>
             
             <div id="no-results" class="hidden text-center py-24 bg-slate-50 dark:bg-slate-800 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-700">
                 <div class="w-24 h-24 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -150,7 +147,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-input');
-            const categoryInputs = document.querySelectorAll('input[name="category"]');
+            const categoryLinks = document.querySelectorAll('.category-filter-link');
             const productList = document.getElementById('product-list');
             const loadMoreContainer = document.getElementById('load-more-container');
             const loadMoreBtn = document.getElementById('load-more-btn');
@@ -158,7 +155,11 @@
             const noResults = document.getElementById('no-results');
 
             let searchTimeout;
-            let currentUrl = '{{ route("products.index") }}';
+            // Base products index URL for AJAX requests
+            let currentUrl = @json(route('products.index', [], false));
+            const loadMoreBtnIdleHtml = '<span class="relative z-10">' + @json(__('products.load_more')) + '</span><svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>';
+            const productsEndHintTpl = @json(__('products.all_shown_hint', ['count' => '__N__']));
+            const productsEndHintEl = document.getElementById('products-end-hint');
 
             function fetchProducts(url, append = false) {
                 loadingSpinner.classList.remove('hidden');
@@ -166,32 +167,39 @@
                     productList.classList.add('opacity-50');
                 }
 
-                const params = new URLSearchParams();
-                if (searchInput.value) params.append('search', searchInput.value);
-                
-                const selectedCategory = document.querySelector('input[name="category"]:checked').value;
-                if (selectedCategory !== 'all') params.append('category', selectedCategory);
-
-                // If handling load more, we use the provided full URL which already has page param,
-                // but we need to merge current filters if they aren't there. 
-                // However, the cleanest way for 'Load More' with filters is to rely on the controller returning the correct next_page_url with filters, 
-                // OR we construct it manually. Laravel's paginate appends query params if we tell it to.
-                // For simplicity here: Load More just grabs the next page for the *current* filter state.
-                
-                let fetchUrl = url;
-                if (!url.includes('?')) {
-                    fetchUrl = url + '?' + params.toString();
-                } else if (!append) {
-                    // Resetting filters means we are starting from page 1 usually
-                     fetchUrl = currentUrl + '?' + params.toString();
-                } else {
-                    // Start of append (Load More). 
-                    // Laravel pagination links usually don't carry extra params unless `appends` is used in Blade.
-                    // But here we are doing AJAX.
-                    // Let's just append current filters to the next_page_url if meaningful
-                    if(searchInput.value) fetchUrl += '&search=' + encodeURIComponent(searchInput.value);
-                    if(selectedCategory !== 'all') fetchUrl += '&category=' + encodeURIComponent(selectedCategory);
+                let u;
+                try {
+                    u = new URL(url, window.location.origin);
+                } catch (e) {
+                    console.error('Invalid products URL', e);
+                    loadingSpinner.classList.add('hidden');
+                    productList.classList.remove('opacity-50');
+                    return;
                 }
+
+                if (!append) {
+                    u.searchParams.delete('page');
+                }
+
+                if (searchInput.value) {
+                    u.searchParams.set('search', searchInput.value);
+                } else {
+                    u.searchParams.delete('search');
+                }
+
+                if (!u.searchParams.has('category')) {
+                    const currentCategory = new URLSearchParams(window.location.search).get('category');
+                    if (currentCategory) {
+                        u.searchParams.set('category', currentCategory);
+                    } else {
+                        u.searchParams.delete('category');
+                    }
+                }
+
+                // Mark as AJAX request
+                u.searchParams.set('ajax', '1');
+
+                const fetchUrl = u.toString();
 
                 fetch(fetchUrl, {
                     headers: {
@@ -213,12 +221,23 @@
                     }
 
                     if (data.next_page_url) {
-                        loadMoreContainer.classList.remove('hidden');
-                        loadMoreBtn.setAttribute('data-next-url', data.next_page_url);
-                        loadMoreBtn.innerHTML = 'Load More';
-                        loadMoreBtn.disabled = false;
+                        if (loadMoreContainer) loadMoreContainer.classList.remove('hidden');
+                        if (loadMoreBtn) {
+                            loadMoreBtn.setAttribute('data-next-url', data.next_page_url);
+                            loadMoreBtn.innerHTML = loadMoreBtnIdleHtml;
+                            loadMoreBtn.disabled = false;
+                        }
                     } else {
-                        loadMoreContainer.classList.add('hidden');
+                        if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
+                    }
+
+                    if (productsEndHintEl && typeof data.total === 'number') {
+                        if (!data.next_page_url && data.html.trim() !== '' && data.total > 0) {
+                            productsEndHintEl.textContent = productsEndHintTpl.replace('__N__', String(data.total));
+                            productsEndHintEl.classList.remove('hidden');
+                        } else {
+                            productsEndHintEl.classList.add('hidden');
+                        }
                     }
                 })
                 .catch(error => console.error('Error:', error))
@@ -236,10 +255,28 @@
                 }, 500);
             });
 
-            // Category Filter
-            categoryInputs.forEach(input => {
-                input.addEventListener('change', () => {
-                    fetchProducts(currentUrl);
+            // Category Filter (AJAX without full page reload)
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const url = new URL(this.href, window.location.origin);
+                    const category = url.searchParams.get('category') || 'all';
+                    const fetchUrl = category !== 'all' ? `${currentUrl}?category=${encodeURIComponent(category)}` : currentUrl;
+
+                    history.replaceState(null, '', fetchUrl);
+                    fetchProducts(fetchUrl);
+
+                    categoryLinks.forEach(item => {
+                        const itemCard = item.querySelector('div');
+                        if (itemCard) {
+                            itemCard.classList.remove('border-blue-600', 'shadow-xl', 'shadow-blue-600/30', 'ring-4', 'ring-blue-400/30');
+                        }
+                    });
+
+                    const selectedCard = this.querySelector('div');
+                    if (selectedCard) {
+                        selectedCard.classList.add('border-blue-600', 'shadow-xl', 'shadow-blue-600/30', 'ring-4', 'ring-blue-400/30');
+                    }
                 });
             });
 
@@ -247,7 +284,9 @@
             if (loadMoreBtn) {
                 loadMoreBtn.addEventListener('click', function() {
                     const nextUrl = this.getAttribute('data-next-url');
-                    this.innerHTML = 'Loading...';
+                    if (!nextUrl) return;
+                    const label = this.querySelector('span.relative');
+                    if (label) label.textContent = 'Loading...';
                     this.disabled = true;
                     fetchProducts(nextUrl, true);
                 });
